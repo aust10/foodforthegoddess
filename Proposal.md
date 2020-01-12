@@ -19,7 +19,7 @@ Food for the goddess is a thoughtful guide for cooking for your partner (a thoug
 - Allow recipes to be searched by a variety of ways
 
 ## Data Model
-##### The things that will need to be stored are:
+### The things that will need to be stored are:
 1. Users
   - Store user profile 
   - Allow user to set avatar
