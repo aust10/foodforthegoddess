@@ -41,15 +41,15 @@ Food for the goddess is a thoughtful guide for cooking for your partner (a thoug
   
 ## Schedule
 This will be ordered in have to haves to nice to haves!
-1. [] Model to store all recipes
+1. [ ] Model to store all recipes
   - *Jan 15-20* Set up backend to store all data to be parsed though for user searches 
-2. [] Results page
+2. [ ] Results page
   - *Jan 20-23* This should have all of the above features in proper format with rough css
-3. [] Search page 
+3. [ ] Search page 
   - *Jan 23-29* This should have all the required search page features and rough css 
-4. [] User Profile
+4. [ ] User Profile
   - *Jan 29-31* This should have all the requred user profile information
-5. [] Wrap it all up with style
+5. [ ] Wrap it all up with style
   - *Jan 31-Feb 5* Finalize all the looks of the page crunch time!!
   
 # Beyond
