@@ -55,9 +55,10 @@ The following list is ordered from things that need to be on or made for the pag
 # Beyond
 Beyond this project length I plan to keep working on this site adding more functionality and features along with implementing art displays into the mix. 
 
-- Add talk function to allow recipe to talk to you out loud so you don't have to touch your device with dirty hands
-- Add links to tools needed to accomplish recipes with *Amazon*
-- Add Art display feature to page to showcase unique homemade art. 
+- Add talk function to allow recipe to talk to you out loud so you don't have to touch your device with dirty hands.
+- Add links to tools needed to accomplish recipes with *Amazon*.
+- Add Art display feature to page to showcase unique homemade art.
+- Make it IOS compatable.
 
 This site has endless possibilities and I really want to give the average user the best experience!
 
