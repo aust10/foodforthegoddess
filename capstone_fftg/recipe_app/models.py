@@ -2,7 +2,6 @@ from django.db import models
 
 
 
-
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
@@ -31,13 +30,25 @@ class KeyWord(models.Model):
         verbose_name_plural = 'KeyWords'
 
     def __str__(self):
-        return self.keywords    
+        return self.keywords  
 
+class Ingredients(models.Model):
+    ingredients = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name = 'Ingredients'
+        
+
+    def __str__(self):
+        return self.ingredients
+
+    
 class Recipe(models.Model):
     recipe_name = models.CharField(max_length=100)
     category = models.ManyToManyField(Category, verbose_name='Category')
     technique = models.ManyToManyField(Technique, verbose_name='Technique')
-    key_words = models.ManyToManyField(KeyWord, verbose_name='KeyWord')
+    keywords = models.ManyToManyField(KeyWord, verbose_name='KeyWord')
+    ingredients = models.ManyToManyField('Ingredients', verbose_name='Ingredients')
     prep_time = models.IntegerField()
     body = models.TextField()
 

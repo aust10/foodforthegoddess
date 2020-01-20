@@ -1,0 +1,37 @@
+#title{
+    text-align: center;
+    font-size: 42px;
+}
+#searchSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-between;
+    align-items: center;
+    background-image: url('/static/images/basic_background.jpg');
+    height:200px;
+    margin:16px;
+    border-radius: 6px;
+}
+#searchBtn{
+    font-size: larger;
+    height: 30px;
+    width: auto;
+    margin:20px
+}
+#techniqueBtn{
+    font-size: larger;
+    height: 30px;
+    width: auto;
+    margin:20px
+}
+#categorySel{
+    font-size: large;
+}
+#inputBox{
+    font-size: large;
+    width: 275px;
+}
+button{
+    font-size: large;
+}
