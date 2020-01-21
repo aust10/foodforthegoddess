@@ -13,10 +13,11 @@
         <div id="container">
             <ul >
                 <h1>Recipe's</h1>
-                <li v-for="recipe in recipes":key="recipes.id">[[ recipe.recipe_name]]:</li><br>
-                <li v-for="keyword in recipes":key="recipes.keyword_info">[[ keyword.keyword_info ]]</li><br>
-                <li v-for="ingredient in recipes">[[ ingredient.ingredient_info ]]</li><br>
-                <li v-for="body in recipes">[[body.body]]</li>
+                
+                <li v-for="recipe in recipes":key="recipes.id">[[ recipe.recipe_name ]]:</li><br>
+                <li v-for="recipe in recipes":key="recipes.keyword_info">[[ recipe.keyword_info]]</li><br>
+                <li v-for="recipe in recipes">[[ recipe.ingredient_info ]]</li><br>
+                <li v-for="recipe in recipes">[[recipe.body]]</li>
             </ul>
         </div>
     </div>
