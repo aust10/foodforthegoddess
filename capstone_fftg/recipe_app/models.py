@@ -38,7 +38,6 @@ class Ingredients(models.Model):
     class Meta:
         verbose_name = 'Ingredients'
         
-
     def __str__(self):
         return self.ingredients
 

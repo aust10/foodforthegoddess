@@ -11,7 +11,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': timedelta(hours=1),
+    'JWT_REFRESH_EXPERATION_DELTA': timedelta(days=7),
+}
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    # 'corsheaders',
 
     'recipe_app.apps.RecipeAppConfig',
     'api.apps.ApiConfig',
@@ -52,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'fftg_project.urls'
@@ -127,7 +136,27 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 REST_FRAMEWORK ={
-    'DEFAULT_PERMISION_CLASSES' : [
-        'rest_framework.permissions.AllowAny',
-    ]
+    'DEFAULT_PERMISION_CLASSES': 
+        ['rest_framework.permissions.IsAdminUser'],
+    'DEFAULT_AUTHENTICATION_CLASSES':
+        ['rest_framework_simplejwt.authentication.JWTAuthentication'],
+    
 }
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST =(
+    'http://127.0.0.1:8080',
+    'http://127.0.0.1:8000',
+)
+
+
+
+# HTTP 200 OK
+# Allow: POST, OPTIONS
+# Content-Type: application/json
+# Vary: Accept
+
+# {
+#     "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU3OTc1Mzk4NCwianRpIjoiYWEwMWQ5ODg1NmU2NDNmYzgxMWQyMmYyOWJkNjZhYzYiLCJ1c2VyX2lkIjoxfQ._jonqKIlWK4jarNl1Dp2UbAnlyKYOosx_JfMMvPrfco",
+#     "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc5NjY3ODg0LCJqdGkiOiJhMjg2ZDQ1M2Y5NDQ0YjVmYmViMjY0ZWRmZDcxODI3NCIsInVzZXJfaWQiOjF9.L9n6yRs-x2LJJpLSwatE7SZ0YVP-0FUpE7rV9afJXbo"
+# }

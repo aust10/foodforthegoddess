@@ -43,14 +43,14 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields =(
             'id',
             'recipe_name',
-            # 'category',
+            'category',
             'category_info',
-            # 'technique',
+            'technique',
             'technique_info',
-            # 'keywords',
+            'keywords',
             'keyword_info',
             'prep_time',
-            # 'ingredients',
+            'ingredients',
             'ingredient_info',
             'body',
         )

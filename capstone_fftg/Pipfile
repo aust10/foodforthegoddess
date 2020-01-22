@@ -9,6 +9,8 @@ verify_ssl = true
 django = "*"
 djangorestframework = "==3.11.0"
 pygments = "==2.5.2"
+django-cors-headers = "*"
+djangorestframework-simplejwt = "*"
 
 [requires]
 python_version = "3.7"
