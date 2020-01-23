@@ -1,30 +1,25 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <Search/>
-    <h1 v-for="(item, index) in posts" :key="index">{{ item.title }}</h1>
+    <v-container fluid>
+      <h1>Home Page</h1>
+      <!-- <input v-model="username" placeholder="Search..." /> -->
+      <!-- <input v-model="password" placeholder="password here..." /> -->
+      <!-- <v-btn @click="getToken">Find</v-btn><br> -->
+      <router-link to="/login">
+          Login
+      </router-link>
+      <p>This Page will be the initial page that everyone can visit with a login, pictures scrolling carosell </p>
+      <!-- <v-btn @click="deleteToken">Remove token from Vue frontend</v-btn> -->
+      <!-- <h3>Access token:</h3>
+      <p>{{access}}</p>
+      <h3>Refresh token:</h3>
+      <p>{{refresh}}</p>
+      <v-btn @click="inspectToken">Inspect token</v-btn>
+      <v-btn @click="refreshToken">Refresh token</v-btn>
+      <v-btn @click="testAPI">Test Protected Django API</v-btn> -->
+    </v-container>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import Search from '@/components/Search';
-import {mapState} from 'vuex'
 
-export default {
-  name: 'home',
-  components: {
-    HelloWorld,
-    Search
-  },
-  mounted() {
-    this.$store.dispatch('loadPosts')
-  },
-  computed: {
-    ...mapState([
-      'posts'
-    ])
-  }
-}
 </script>

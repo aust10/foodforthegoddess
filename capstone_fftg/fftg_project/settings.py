@@ -44,15 +44,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
+    'djoser',
     'rest_framework',
+    'rest_framework_simplejwt',
     'rest_framework.authtoken',
-    # 'corsheaders',
+    
 
     'recipe_app.apps.RecipeAppConfig',
     'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,7 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+  
 ]
 
 ROOT_URLCONF = 'fftg_project.urls'
@@ -137,16 +141,16 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 REST_FRAMEWORK ={
     'DEFAULT_PERMISION_CLASSES': 
-        ['rest_framework.permissions.IsAdminUser'],
+        ['rest_framework.permissions.IsAuthenticated'],
     'DEFAULT_AUTHENTICATION_CLASSES':
         ['rest_framework_simplejwt.authentication.JWTAuthentication'],
     
 }
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST =(
-    'http://127.0.0.1:8080',
-    'http://127.0.0.1:8000',
+    'http://localhost:8084',
+   
 )
 
 

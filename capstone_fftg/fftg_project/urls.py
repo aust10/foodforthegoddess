@@ -22,10 +22,12 @@ from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshVie
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
     path('api/v1/', include('api.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-    path('', include('recipe_app.urls')),
-    # path('hello/', views.HelloView.as_view(), name='hello'),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api-auth/', include('rest_framework.urls')),
+    # path('', include('recipe_app.urls')),
+    # # path('hello/', views.HelloView.as_view(), name='hello'),
+    # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
