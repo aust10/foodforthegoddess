@@ -4,6 +4,8 @@ import JWTTest from '../views/JWTTest.vue'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import UserDashBoard from '../views/UserDashBoard'
+import index from '../store'
+// import { authComputed } from '../store/helpers'
 
 Vue.use(VueRouter)
 
@@ -29,9 +31,18 @@ const router = new VueRouter({
     {
       path: '/home',
       name: 'userDashBoard',
-      component: UserDashBoard
+      component: UserDashBoard,
+      beforeEnter (to, from, next){
+        if(index.state.isAuthenticated) {
+          next ()
+        } else {
+          next('/Login')
+        }
+      }
     }
   ]
 })
 
+
 export default router
+

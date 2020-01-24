@@ -52,6 +52,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             'prep_time',
             'ingredients',
             'ingredient_info',
+            'picture',
             'body',
         )
         # depth = 1

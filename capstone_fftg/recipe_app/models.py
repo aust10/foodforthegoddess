@@ -41,6 +41,15 @@ class Ingredients(models.Model):
     def __str__(self):
         return self.ingredients
 
+class Picture(models.Model):
+    picture = models.ImageField()
+
+    class Meta:
+        verbose_name ='Picture'
+
+    def __str__(self):
+        return self.picture
+    
     
 class Recipe(models.Model):
     recipe_name = models.CharField(max_length=100)
@@ -50,6 +59,7 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField('Ingredients', verbose_name='Ingredients')
     prep_time = models.IntegerField()
     body = models.TextField()
+    picture = models.ImageField()
 
     class Meta:
         verbose_name = 'Recipe'

@@ -12,7 +12,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         // For managing User logins
-        authUser: {},
+        authUser: null,
         isAuthenticated: false,
         // JSON Web Token 
         jwt_access: localStorage.getItem('accessToken'),
@@ -113,7 +113,7 @@ export default new Vuex.Store({
         deleteToken() {
             this.commit("removeToken")
             this.commit("unsetAuthUser")
-            router.push({name: "login"})
+            router.push({name: "testLogin"})
         },
         // Use Axios to refresh existing JWT (no username/password needed with refresh, just refresh token)
         refreshToken() {
@@ -165,5 +165,10 @@ export default new Vuex.Store({
         }
     },  // end Vuex actions
     modules: {
-    }   // end Vuex modules
+    },
+    getters: {
+        loggedIn (state) {
+            return !!state.authUser
+        }
+    }  // end Vuex modules
 })
