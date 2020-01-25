@@ -98,7 +98,8 @@ DATABASES = {
     }
 }
 
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -144,14 +145,15 @@ REST_FRAMEWORK ={
         ['rest_framework.permissions.IsAuthenticated'],
     'DEFAULT_AUTHENTICATION_CLASSES':
         ['rest_framework_simplejwt.authentication.JWTAuthentication'],
-    
+    'DEFAULT_FILTER_BACKENDS':                       ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 CORS_ORIGIN_ALLOW_ALL = False
 # CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST =(
-    'http://localhost:8084',
-   
+    'http://localhost:8080',
 )
+    # 'http://localhost:8084',
+
 
 
 
