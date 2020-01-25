@@ -8,17 +8,19 @@
     >
       <v-toolbar-title>food4thegoddess</v-toolbar-title>
       <v-spacer></v-spacer>
-
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
         <v-text-field
-   
+          rounded
+            v-model="search"
             clearable
             flat
             solo-inverted
             hide-details
             label="Search"
         ></v-text-field>
-        <v-spacer></v-spacer>
-        <v-btn @click="keywordsearch" :key="searchit">Search</v-btn>
+        <!-- <v-spacer></v-spacer> -->
+        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch">Search</v-btn>
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-btn rounded color="transparent" @click="getRecipes">Favorites</v-btn>
@@ -47,12 +49,8 @@
               <v-card-title class="red--text">Today's top recipe</v-card-title>
               </v-img>
 
-              <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
-
               <v-card-text class="text--primary">
               <div>Whitehaven Beach</div>
-
-              <div>Whitsunday Island, Whitsunday Islands</div>
               </v-card-text>
 
               <v-card-actions>
@@ -105,7 +103,7 @@
             :items="dbInfo"
             :items-per-page.sync="itemsPerPage"
             :page="page"
-            :search="search"
+            :scroll="scroll"
             :sort-by="sortBy.toLowerCase()"
             :sort-desc="sortDesc"
             hide-default-footer
@@ -200,38 +198,8 @@
   </v-app>
 </template>
 <script>
-// import axios from "axios";
-// export default {
-//     data() {
-//         return {
-//         info: [],
-//         };
-//     },
-//     methods: {
-//     deleteToken() {
-//         this.$store.dispatch("deleteToken");
-//     },
-//     getRecipes() {
-//         axios({
-//         method: "get",
-//         url: 'http://localhost:8000/api/v1/recipes/',
-//         headers: {
-//             authorization: `Bearer ${this.access}`
-//         }
-//         })
-//         .then(response => console.log(response.data))
-//         .catch(error => {
-//             alert("Error with request...not authenticated");
-//             console.log(error);
-//         });
-//     }
-//     },
-
-// }
-// </script>
-// import axios
-// <script>
-import axios from "axios";
+import axios from "axios"
+import router from '../router'
   export default {
     data () {
       return {
@@ -243,8 +211,8 @@ import axios from "axios";
         page: 1,
         itemsPerPage: 4,
         sortBy: 'recipe_name',
-        selectBar:'',
         search: '',
+        scroll: '',
         selectedInfo: [],
   
         dbInfo: [],
@@ -274,45 +242,44 @@ import axios from "axios";
       keywordsearch(){
         // console.log(this.search)
         // console.log(this.selectBar)
-        if (this.selectBar= "category_info"){
-          axios({
-            method: "get",
-            url: `http://localhost:8000/api/v1/recipes/?search=${this.search}`,
-          })
-          .then(response => console.log(response.data))
-          .catch(error => {
-            alert("Please try another search");
-            console.log(error);
-          });
-      };
-      nextPage(); {
-        if (this.page + 1 <= this.numberOfPages) this.page += 1
-      }
-      formerPage (); {
-        if (this.page - 1 >= 1) this.page -= 1
-      }
-      updateItemsPerPage (number); {
-        this.itemsPerPage = number
-      }
-      deleteToken(); {
-        this.$store.dispatch("deleteToken");
-    }
-    getRecipes(); {
         axios({
-        method: "get",
-        url: 'http://localhost:8000/api/v1/recipes/',
+          method: "get",
+          url: `http://localhost:8000/api/v1/recipes/?search=${this.search}`,
         })
-        .then(response => this.dbInfo = response.data)
+        .then(response => this.selectedInfo = response.data)
+          router.push({name:'searchResult'})
         .catch(error => {
-            alert("Error with request...not authenticated");
-            console.log(error);
+          alert("Please try another search");
+          console.log(error);
         });
-    }
+      },
+      getRecipes(){
+          axios({
+          method: "get",
+          url: 'http://localhost:8000/api/v1/recipes/',
+          })
+          .then(response => this.dbInfo = response.data)
+          .catch(error => {
+              alert("Error with request...not authenticated");
+              console.log(error);
+      });
+      },
+      nextPage(){
+        if (this.page + 1 <= this.numberOfPages) this.page += 1
+      },
+      formerPage(){
+        if (this.page - 1 >= 1) this.page -= 1
+      },
+      updateItemsPerPage(number){
+        this.itemsPerPage = number
+      },
+      deleteToken(){
+        this.$store.dispatch("deleteToken");
+      },
     },
     mounted() {
         this.getRecipes()
         // inspectToken()
     }
-  }
   }
 </script>
