@@ -16,7 +16,7 @@
           >
             <v-card class="elevation-12">
               <v-toolbar
-                color="primary"
+                color="secondary"
                 dark
                 flat
               >
@@ -26,7 +26,7 @@
                 </v-tooltip>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form >
                   <v-text-field
                     v-model="username"
                     label="Login"
@@ -44,8 +44,8 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn @click="getToken" color="primary">Login</v-btn>
-                <v-btn color="primary">Register</v-btn>
+                <v-btn @click="getToken" color="secondary">Login</v-btn>
+                <v-btn color="secondary">Register</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

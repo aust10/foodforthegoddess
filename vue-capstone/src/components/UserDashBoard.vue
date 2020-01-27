@@ -3,9 +3,10 @@
 
     <v-app-bar
       app
-      color="indigo"
+      color="secondary"
       dark
     >
+    
       <v-toolbar-title>food4thegoddess</v-toolbar-title>
       <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -20,15 +21,15 @@
             label="Search"
         ></v-text-field>
         <!-- <v-spacer></v-spacer> -->
-        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch">Search</v-btn>
+        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch"><v-icon>mdi-magnify</v-icon></v-btn>
+        <v-spacer></v-spacer>
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-btn rounded color="transparent" @click="getRecipes">Favorites</v-btn>
       <v-btn rounded color="transparent" @click="deleteToken">Logout</v-btn>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-app-bar>  <v-container fluid>
+    </v-app-bar>  
+
+    <v-container class="success" fluid>
     <v-row>
       <v-col cols="12">
         <v-row
@@ -38,7 +39,7 @@
          
         >
           <v-card
-              class="align-right ma-6 pa-2 mb-1"
+              class="align-right ma-6 pa-2 mb-1 info"
               max-width="60%"
           >
               <v-img
@@ -75,13 +76,13 @@
             outlined
           >
           <v-img
-            class="white--text align-end ml-3"
+            class="white--text align-end ml-3 info"
             height="80px"
             width="60"
             :src="require('../images/FFTG_logo.png')"
           >
           </v-img>
-          <v-card-title class="black--text">Today's top recipe</v-card-title>
+          <v-card-title class="black--text">Food for thought</v-card-title>
           <v-card-text class="text--primary">
             <div>
             “Food for the Goddess” provides men – and women, for that matter -- one avenue for
@@ -97,7 +98,7 @@
     </v-row>
   </v-container>
     <v-content
-      class="pa-5 pt-0">
+      class="pa-5 pt-0 success">
         <v-container fluid>
             <v-data-iterator
             :items="dbInfo"
@@ -121,7 +122,7 @@
                     lg="3"
                 >
                     <v-card>
-                    <v-card-title class="subheading font-weight-bold">{{ item.recipe_name }}</v-card-title>
+                    <v-card-title class="subheading font-weight-bold info">{{ item.recipe_name }}</v-card-title>
 
                     <v-divider></v-divider>
 
@@ -158,8 +159,8 @@
                 <v-btn
                     fab
                     dark
-                    color="blue darken-3"
-                    class="mr-1"
+                    color="gold"
+                    class="mr-1 black--text"
                     @click="formerPage"
                 >
                     <v-icon>mdi-chevron-left</v-icon>
@@ -167,8 +168,8 @@
                 <v-btn
                     fab
                     dark
-                    color="blue darken-3"
-                    class="ml-1"
+                    color="gold"
+                    class="ml-1 black--text"
                     @click="nextPage"
                 >
                     <v-icon>mdi-chevron-right</v-icon>
@@ -178,7 +179,7 @@
             </v-data-iterator>
         </v-container>
 
-        <v-container
+        <!-- <v-container
             max-width="200"    
         >
             <h1>History:</h1>
@@ -187,10 +188,10 @@
                 <li v-for="name in dbInfo" :key = "name" >{{ name.recipe_name }}</li>
             </ul>
             <p>{{ dbInfo }}</p>
-        </v-container>
+        </v-container> -->
     </v-content>
     <v-footer
-      color="indigo"
+      color="secondary"
       app
     >
       <span class="white--text">&copy; 2020</span>
@@ -199,7 +200,8 @@
 </template>
 <script>
 import axios from "axios"
-import router from '../router'
+// import router from '../router'
+import { bus } from '../main'
   export default {
     data () {
       return {
@@ -247,7 +249,10 @@ import router from '../router'
           url: `http://localhost:8000/api/v1/recipes/?search=${this.search}`,
         })
         .then(response => this.selectedInfo = response.data)
-          router.push({name:'searchResult'})
+        // this.$emit('searched', this.selectedInfo)
+        bus.$emit('infochanged', this.selectedInfo)
+        this.$router.push('/results')
+          // router.push({name:'searchResult'})
         .catch(error => {
           alert("Please try another search");
           console.log(error);
@@ -259,6 +264,7 @@ import router from '../router'
           url: 'http://localhost:8000/api/v1/recipes/',
           })
           .then(response => this.dbInfo = response.data)
+          
           .catch(error => {
               alert("Error with request...not authenticated");
               console.log(error);
