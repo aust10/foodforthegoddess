@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
     'recipe_app.apps.RecipeAppConfig',
     'api.apps.ApiConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -124,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -154,7 +155,10 @@ CORS_ORIGIN_WHITELIST =(
 )
     # 'http://localhost:8084',
 
-
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7)
+}
 
 
 # HTTP 200 OK

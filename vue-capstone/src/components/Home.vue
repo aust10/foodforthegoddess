@@ -14,16 +14,15 @@
         <!-- <v-spacer></v-spacer> -->
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <v-btn rounded color="transparent" @click="getRecipes">Favorites</v-btn>
-        <v-btn to="/login" rounded color="transparent" @click="obtainToken">Login</v-btn>
+      <!-- <v-btn rounded color="transparent" @click="obtainToken">Favorites</v-btn> -->
+        <v-btn to="/login" rounded color="transparent" @click="getToken">Login</v-btn>
     </v-app-bar>
         <v-container  color="#FADCCA" fluid>
     <v-row>
       <v-col cols="12">
+          <!-- :align="alignment" -->
         <v-row
-          :align="alignment"
-          justify-space-between
-          class="pb-0 justify-space-between"
+          class="pb-0 "
          
         >
         <v-card
@@ -50,11 +49,11 @@
           </v-card-text>
           </v-card>
           <v-card
-              class="align-right ma-6 pa-2 mb-1 info"
+              class=" ma-6 pa-2 mb-1 info"
               max-width="40%"
           >
               <v-img
-              class="white--text align-end"
+              class="white--text "
               height="300px"
               :src="require('../images/sample.jpg')"
               >
@@ -84,7 +83,7 @@
           
           
           <v-card
-            width="25%"
+            width="23%"
             class="ma-6 mb-1 pa-6 mr-6 info "
             outlined
           >
@@ -92,7 +91,7 @@
             outlined>
           <v-card-title class="black--text ">okra</v-card-title>
           <v-img
-            class="white--text align-end ml-3"
+            class="white--text  ml-3"
             height="100px"
             width=""
             :src="require('../images/sample.jpg')"
@@ -111,7 +110,7 @@
             outlined>
           <v-card-title class="">okra</v-card-title>
             <v-img
-            class="white--text align-end ml-3 "
+            class="white--text  ml-3 "
             height="100px"
             width=""
             :src="require('../images/sample.jpg')"
@@ -142,11 +141,24 @@
   </div>
 </template>
 <script>
+export default {
+  data(){
+    return {
 
+    }
+  },
+  methods: {
+       getToken() {
+      // call state obtain token here
+      const payload = {
+        username: this.username,
+        password: this.password
+      };
+      this.$store.dispatch("obtainToken", payload);
+    },
+  }
+}
 </script>
 <style scoped>
-#home{
-  background-color: #F59A98;
-}
 
 </style>

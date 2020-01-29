@@ -32,8 +32,8 @@
     <v-container class="success" fluid>
     <v-row>
       <v-col cols="12">
+          <!-- :align="alignment" -->
         <v-row
-          :align="alignment"
           justify-space-between
           class="pb-0 justify-space-between"
          
@@ -101,11 +101,12 @@
       class="pa-5 pt-0 success">
         <v-container fluid>
             <v-data-iterator
+            v-show="!this.selectedInfo.length"
             :items="dbInfo"
             :items-per-page.sync="itemsPerPage"
             :page="page"
             :scroll="scroll"
-            :sort-by="sortBy.toLowerCase()"
+            :sort-by="sortBy"
             :sort-desc="sortDesc"
             hide-default-footer
             >
@@ -114,8 +115,8 @@
             <template v-slot:default="props">
                 <v-row>
                 <v-col
-                    v-for="item in props.items"
                     :key= "item.recipe_name" 
+                    v-for="item in props.items"
                     cols="12"
                     sm="6"
                     md="4"
@@ -179,16 +180,58 @@
             </v-data-iterator>
         </v-container>
 
-        <!-- <v-container
-            max-width="200"    
+        <v-container
+            max-width="200"
         >
-            <h1>History:</h1>
-            <p>This will be the body of the history</p>
-            <ul> 
-                <li v-for="name in dbInfo" :key = "name" >{{ name.recipe_name }}</li>
-            </ul>
-            <p>{{ dbInfo }}</p>
-        </v-container> -->
+          <h1 v-show="this.selectedInfo.length">Results:</h1>
+        <v-card
+            class="ma-6 mb-1 pa-6 mr-6 "
+            outlined
+            v-for="name in selectedInfo" :key = "name"
+          >
+          <v-card-title class="black--text justify-center" >{{ name.recipe_name }}<v-icon 
+            color="red darken-4" class="ml-12" @click="favorite(name.id)">mdi-heart-outline</v-icon>
+          </v-card-title>
+            <v-container
+              fill-height="300px"
+              fill-width="500">
+              <v-layout 
+                  align-center
+                  fill-height="300px"
+                  fill-width="500">
+                <v-img
+                  class="white--text align-end ml-3 info "
+                  height="300px"
+                  width="500"
+                  :src='name.picture'
+                >
+                </v-img>
+              </v-layout>
+            </v-container>
+
+          <v-card-text class="text--primary">
+            <v-row justify="center">
+              <v-expansion-panels popout>
+                <v-expansion-panel
+                  v-for="(item,i) in 1"
+                  :key="i"
+                  :hover="hover"
+                >
+                  <v-expansion-panel-header class="gold">Check out the Recipe!</v-expansion-panel-header>
+                  <v-expansion-panel-content v-model="hover">
+                    <ul class="mt-2 mb-5" >
+                      <li v-for="ingredient in name.ingredient_info" :key="ingredient">
+                        {{ingredient.ingredients}}
+                      </li>
+                    </ul>
+                    <p>{{name.body}}</p>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </v-row>
+          </v-card-text>
+          </v-card>        
+        </v-container>
     </v-content>
     <v-footer
       color="secondary"
@@ -201,7 +244,7 @@
 <script>
 import axios from "axios"
 // import router from '../router'
-import { bus } from '../main'
+// import { bus } from '../main'
   export default {
     data () {
       return {
@@ -215,7 +258,12 @@ import { bus } from '../main'
         sortBy: 'recipe_name',
         search: '',
         scroll: '',
+        emptyIcon: 'mdi-heart-outline',
+        fullIcon: 'mdi-heart',
+        color: 'red lighten-3',
         selectedInfo: [],
+        favoriteInfo: [],
+       
   
         dbInfo: [],
         items: [
@@ -248,10 +296,15 @@ import { bus } from '../main'
           method: "get",
           url: `http://localhost:8000/api/v1/recipes/?search=${this.search}`,
         })
-        .then(response => this.selectedInfo = response.data)
-        // this.$emit('searched', this.selectedInfo)
-        bus.$emit('infochanged', this.selectedInfo)
-        this.$router.push('/results')
+        .then(response => {
+          this.selectedInfo = response.data
+          // this.$emit('searched', this.selectedInfo)
+        }
+          )
+
+
+        // bus.$emit(console.log('infochanged', this.selectedInfo))
+        // this.$router.push('/results')
           // router.push({name:'searchResult'})
         .catch(error => {
           alert("Please try another search");
@@ -280,8 +333,27 @@ import { bus } from '../main'
         this.itemsPerPage = number
       },
       deleteToken(){
-        this.$store.dispatch("deleteToken");
+        this.$store.dispatch('deleteToken')
       },
+      // favorite(id) {
+      //   axios({
+      //     method: "patch",
+      //     url: 'http://localhost:8000/api/v1/favorite/'+ id,
+      //     headers: {
+      //         authorization: `Bearer ${this.$store.obtainToken}`
+      //       },
+      //     data: {
+      //       favorite_recipes: this.id
+      //     }
+      //     })
+      //     .then((response)=> {
+      //       console.log(response);
+      //     })
+      //     .catch(error => {
+      //         alert("Error with request...not authenticated");
+      //         console.log(error);
+      // });
+      // },
     },
     mounted() {
         this.getRecipes()

@@ -20,10 +20,10 @@
             label="Search"
         ></v-text-field>
         <!-- <v-spacer></v-spacer> -->
-        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch">Search</v-btn>
+        <!-- <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch">Search</v-btn> -->
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <v-btn rounded color="transparent" @click="getRecipes">Favorites</v-btn>
+      <!-- <v-btn rounded color="transparent" @click="getRecipes">Favorites</v-btn> -->
       <v-btn rounded color="transparent" @click="deleteToken">Logout</v-btn>
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
@@ -34,7 +34,7 @@
           <li v-for="items in selectedInfo" :key= "items">{{ items }}</li>
         </ul> -->
 
-        <app-input @searched="findinfo(console.log($event))"></app-input>
+        <app-input @searched="console.log($event)"></app-input>
         
         <!-- <ul v-if="selectedInfo">
           <li>This is : {{selectedInfo}}</li>
@@ -46,12 +46,13 @@
 </template>
 <script>
 import UserDashBoard from '../components/UserDashBoard'
-import { bus } from '../main'// // // import axios from "axios"
+// import { bus } from '../main'// // // import axios from "axios"
 // // import router from '../router'
 export default {
   data() {
     return {
       selectedInfo: [],
+      search: '',
     }
   },
   components:{
@@ -61,13 +62,15 @@ export default {
     findinfo(findinfo){
       this.selectedInfo = console.log("this is find info", findinfo)
     },
-      created(){
-      bus.$on('infochanged', (data) => {
-      this.selectedInfo = data;
-      console.log(this.selectedInfo)
-    })
+    //   created(){
+    //   bus.$on('infochanged', (data) => {
+    //   this.selectedInfo = data;
+    //   console.log(this.selectedInfo)
+    // }),
+    deleteToken(){
+        this.$store.dispatch("deleteToken");
+    }
   },
-  }
 }
 
 </script>

@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Recipe, Category, Technique, KeyWord, Ingredients
+from .models import Recipe, Category, Technique, KeyWord, Ingredients, Favorite
+#  Favorite
 
 # class RecipeAdmin(admin.ModelAdmin):
 #     list_display = ('recipe_name','category','technique','key_words','prep_time','body')
@@ -15,4 +16,5 @@ admin.site.register(Category)
 admin.site.register(Technique)
 admin.site.register(KeyWord)
 admin.site.register(Ingredients)
+admin.site.register(Favorite)
 # admin.site.register(Picture)

@@ -26,26 +26,95 @@
                 </v-tooltip>
               </v-toolbar>
               <v-card-text>
-                <v-form >
-                  <v-text-field
-                    v-model="username"
-                    label="Login"
-                    name="login"
+                <v-form v-model="formValidity" ref="registrationForm">
+                   <v-text-field
+                    v-if ="registermode"
+                    v-model="firstName"
+                    :rules="rules.name"
+                    id="firstName"
+                    label="First Name"
+                    name="firstName"
                     type="text"
                   />
                   <v-text-field
-                    v-model="password"
-                    id="password"
-                    label="Password"
-                    name="password"
-                    type="password"
+                    v-if ="registermode"
+                    v-model="lastName"
+                    :rules="rules.name"
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    type="text"
                   />
+                  <v-text-field
+                    v-show ="registermode"
+                    v-model="email"
+                    id="email"
+                    label="Email"
+                    name="email"
+                    :rules="rules.email"
+                    type="text"
+                  />
+                  <v-text-field
+                    v-show ="!registermode"
+                    v-model="username"
+                    label="Username"
+                    name="username"
+                    type="text"
+                  />
+                    <v-text-field
+                    v-show ="registermode"
+                    v-model="username"
+                    label="Username"
+                    name="username"
+                    :rules="rules.username"
+                    type="text"
+                  />
+             <v-text-field
+								id="password"
+								label="Password"
+								name="password"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+								v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+								:rules="rules.password"
+                @click:append="showPassword = !showPassword"
+		
+							/>
+							<v-text-field
+								v-if="registermode"
+								id="password2"
+								label="Re-enter Password"
+								name="password2"
+                :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"	
+								v-model="password2"
+                :type="showPassword ? 'text' : 'password'"
+								:rules="password2Validation"
+                @click:append="showPassword2 = !showPassword2"
+
+							/>
+              <v-checkbox label="Agree to terms and conditions" v-if="registermode" v-model="termsCheckbox" required></v-checkbox>
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-spacer />
-                <v-btn @click="getToken" color="secondary">Login</v-btn>
-                <v-btn color="secondary">Register</v-btn>
+
+                <v-btn color="primary" v-if="!registermode" @click="registermode = !registermode">Register new user
+                </v-btn>
+
+                <v-btn color="primary" v-if="registermode" @click="registermode = !registermode">Back to login...
+                </v-btn>
+
+                <v-spacer/>
+
+                <v-btn color="primary" v-if="!registermode" @click="getToken">Login
+                </v-btn>
+
+                <v-btn color="success" v-if="registermode" @click="register" :disabled="!(formValidity && termsCheckbox)">Register
+                </v-btn>
+          
+                <!-- <v-btn color="secondary">Login</v-btn> -->
+                <v-btn color="primary" v-if="!register" @click="register = !register">Register
+                </v-btn>
+
               </v-card-actions>
             </v-card>
           </v-col>
@@ -57,12 +126,27 @@
 <script>
 import axios from "axios";
 export default {
-  name: "about",
+  name: 'login',
   data() {
     return {
-      username: null,
-      password: null
-    };
+      username: '',
+      password: '',
+      password2: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      showPassword: false,
+			showPassword2: false,
+      formValidity: false,
+      registermode: false,
+      termsCheckbox: false,
+			// This is specified here instead of the store so that there is access to this.password
+			password2Validation:  [
+				v => !!v || 'Password is required.',
+				v => (v && v.length) >= 6 || 'Password must be at least 6 characters.',
+        () => (this.password == this.password2) || 'Passwords must be the same.',
+        ],
+    }
   },
   methods: {
     getToken() {
@@ -71,17 +155,21 @@ export default {
         username: this.username,
         password: this.password
       };
-      this.$store.dispatch("obtainToken", payload);
+      this.$store.dispatch('obtainToken', payload)
+      console.log("hi")
     },
-    // refreshToken() {
-    //   this.$store.dispatch("refreshToken");
-    // },
-    // inspectToken() {
-    //   this.$store.dispatch("inspectToken");
-    // },
-    // deleteToken() {
-    //   this.$store.dispatch("deleteToken");
-    // },
+  register(){
+			const payload = {
+				username: this.username,
+				password: this.password2,
+				firstName: this.firstName,
+				lastName: this.lastName,
+				// fullName: `${this.firstName} ${this.lastName}`,
+				email: this.email,
+      }
+      console.log("hi from register")
+			this.$store.dispatch('userSetup', payload)
+		},
     testAPI() {
       axios({
         method: "get",
@@ -103,7 +191,22 @@ export default {
     },
     refresh() {
       return this.$store.state.jwt_refresh;
-    }
+    },
+    baseUrl(){
+			return this.$store.getters.endpoints.baseURL
+		},
+		rules(){
+      return this.$store.getters.formRules
+    },
   }
 };
 </script>
+   // refreshToken() {
+    //   this.$store.dispatch("refreshToken");
+    // },
+    // inspectToken() {
+    //   this.$store.dispatch("inspectToken");
+    // },
+    // deleteToken() {
+    //   this.$store.dispatch("deleteToken");
+    // },

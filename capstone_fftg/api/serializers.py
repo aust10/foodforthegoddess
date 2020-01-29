@@ -1,5 +1,11 @@
 from rest_framework import serializers
 from recipe_app import models
+from django.contrib.auth.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.User
+        fields = ('id', 'username', 'email', 'first_name', 'last_name')
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,6 +35,13 @@ class IngredientsSerializer(serializers.ModelSerializer):
             'ingredients',
         )
 
+# class FavoriteSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = models.Favorite
+#         fields =(
+#             'favorite',
+#         )
+
 class RecipeSerializer(serializers.ModelSerializer):
     ingredient_info = IngredientsSerializer(many=True, read_only=True, source='ingredients')
 
@@ -54,5 +67,6 @@ class RecipeSerializer(serializers.ModelSerializer):
             'ingredient_info',
             'picture',
             'body',
+            # 'favorite_recipes',
         )
         # depth = 1
