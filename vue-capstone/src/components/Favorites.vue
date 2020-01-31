@@ -11,21 +11,11 @@
       <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
-        <v-text-field
-          rounded
-            v-model="search"
-            clearable
-            flat
-            solo-inverted
-            hide-details
-            label="Search"
-        ></v-text-field>
-        <!-- <v-spacer></v-spacer> -->
-        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch"><v-icon>mdi-magnify</v-icon></v-btn>
+       
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <v-btn rounded color="transparent" @click="home">Home</v-btn>
+      <v-btn rounded  color="transparent" @click="home">Home</v-btn>
       <v-btn rounded color="transparent" @click="logout">Logout</v-btn>
     </v-app-bar>        
         <v-container
@@ -35,11 +25,11 @@
         <v-card
             class="ma-6 mb-1 pa-6 mr-6 "
             outlined
-            v-for="recipe in favoriteInfo" :key = "recipe"
+            v-for="recipe in this.favoriteInfo" :key = "recipe"
           >
           <v-card-title class="black--text justify-center" >{{ recipe.recipe_name }}
              <v-icon
-            color="red darken-4" class="ml-12" @click="favorite(name.id)">mdi-heart</v-icon>
+            color="red darken-4" class="ml-12" @click="deleteFavorite(recipe.id)">mdi-heart</v-icon>
           </v-card-title>
             <v-container
               fill-height="300px"
@@ -97,14 +87,46 @@ import router from '../router'
       return {
         favorited: false,
         favoriteInfo: [],
+        selectedInfo: [],
       }
     },
     methods:{
+        deleteFavorite(id) {
+          // console.log("this is the recipe id", id)
+          // // this.$store.getters.favorite.push(id)
+          console.log('this is the getters fav',this.$store.getters.favorite)
+    
+          this.favoriteInfo.splice(id,1)
+          console.log("hi from deleteFavorite")
+          // console.log(this.$store.getters.favorite)
+          // console.log(favoriteRecipes.favorites)
+          axios({
+            method: "patch",
+            url: 'http://localhost:8000/api/v1/users/'+ this.$store.getters.userId +'/',
+            headers:{
+            authorization:
+            `Bearer ${this.$store.getters.accessToken}`
+              },
+            data:{
+              favorites: this.favoriteInfo
+            }
+            })
+            .then((response)=> {
+              console.log(response);
+            })
+            .catch(error => {
+                alert("Error with request...not authenticated");
+                console.log(error);
+        });
+        },
         logout(){
             this.$store.dispatch('deleteToken')
         },
         home(){
            router.push({name: 'userDashBoard'})
+        },
+        check(){
+          console.log(this.favoriteInfo)
         },
         getFavorites(){
             axios({
@@ -127,8 +149,39 @@ import router from '../router'
               });
             }
         },
+        deleteFavorite(id) {
+        // console.log("this is the recipe id", id)
+        // // this.$store.getters.favorite.push(id)
+        console.log('this is the getters fav',this.$store.getters.favorite)
+   
+        this.favoriteInfo.splice(id,1)
+        console.log("hi from deleteFavorite")
+        // console.log(this.$store.getters.favorite)
+        // console.log(favoriteRecipes.favorites)
+        axios({
+          method: "delete",
+          url: 'http://localhost:8000/api/v1/users/'+ this.$store.getters.userId +'/',
+          headers:{
+          authorization:
+          `Bearer ${this.$store.getters.accessToken}`
+            },
+          data:{
+            username: this.$store.getters.user,
+            favorites: this.favoriteInfo
+          }
+          })
+          .then((response)=> {
+            console.log(response);
+          })
+          .catch(error => {
+              alert("Error with request...not authenticated");
+              console.log(error);
+      });
+      },
+      
     mounted(){
         this.getFavorites()
+       
     },
 }
 </script>

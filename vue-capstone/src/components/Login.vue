@@ -122,6 +122,7 @@
   </v-app>
 </template>
 <script>
+import router from "../router"
 import axios from "axios";
 export default {
   name: 'login',
@@ -166,7 +167,8 @@ export default {
 				email: this.email,
       }
       console.log("hi from register")
-			this.$store.dispatch('userSetup', payload)
+      this.$store.dispatch('userSetup', payload)
+      router.push({name: 'userDashBoard'})
 		},
     testAPI() {
       axios({

@@ -7,7 +7,16 @@
       dark
     >
     
-      <v-toolbar-title>food4thegoddess</v-toolbar-title>
+      <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
+      <!-- <div id="toppic">
+        <v-img
+              class="white--text align-end ml-3 info"
+              height="50"
+              width="40"
+              :src="require('../images/FFTG_logo.png')"
+            >
+            </v-img>
+      </div> -->
       <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -189,8 +198,18 @@
             outlined
             v-for="name in selectedInfo" :key = "name"
           >
-          <v-card-title class="black--text justify-center" >{{ name.recipe_name }}<v-icon 
-            color="red darken-4" class="ml-12" @click="favorite(name.id)">mdi-heart-outline</v-icon>
+          <v-card-title class="black--text justify-center" >{{ name.recipe_name }}
+            <!-- <v-col cols="12" sm="3"> -->
+            <v-btn 
+            text icon color="pink" 
+            @click="favorite(name.id),submited=true"
+            :disabled="submited"
+          >
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+          <!-- </v-col> -->
+            <!-- <v-icon 
+            color="red darken-4" class="ml-12" @click="favorite(name.id), !show" >mdi-heart-outline</v-icon> -->
           </v-card-title>
             <v-container
               fill-height="300px"
@@ -232,60 +251,7 @@
           </v-card-text>
           </v-card>        
         </v-container>
-        <v-container
-            max-width="200"
-        >
-          <h1 v-show="this.favoriteInfo.length">Favorites:</h1>
-        <v-card
-            class="ma-6 mb-1 pa-6 mr-6 "
-            outlined
-            v-for="recipe in favoriteInfo" :key = "recipe"
-          >
-          <v-card-title class="black--text justify-center" >{{ recipe.recipe_name }}<v-icon 
-            color="red darken-4" class="ml-12" v-if="favorited" @click="favorite(name.id)">mdi-heart-outline</v-icon>
-            <v-icon v-if="!favorited"
-            color="red darken-4" class="ml-12" @click="favorite(name.id)">mdi-heart</v-icon>
-          </v-card-title>
-            <v-container
-              fill-height="300px"
-              fill-width="500">
-              <v-layout 
-                  align-center
-                  fill-height="300px"
-                  fill-width="500">
-                <v-img
-                  class="white--text align-end ml-3 info "
-                  height="300px"
-                  width="500"
-                  :src='recipe.picture'
-                >
-                </v-img>
-              </v-layout>
-            </v-container>
-
-          <v-card-text class="text--primary">
-            <v-row justify="center">
-              <v-expansion-panels popout>
-                <v-expansion-panel
-                  v-for="(item,i) in 1"
-                  :key="i"
-                  :hover="hover"
-                >
-                  <v-expansion-panel-header class="gold">Check out the Recipe!</v-expansion-panel-header>
-                  <v-expansion-panel-content v-model="hover">
-                    <ul class="mt-2 mb-5" >
-                      <li v-for="ingredient in recipe.ingredient_info" :key="ingredient">
-                        {{ingredient.ingredients}}
-                      </li>
-                    </ul>
-                    <p>{{recipe.body}}</p>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-            </v-row>
-          </v-card-text>
-          </v-card>        
-        </v-container>
+        
     </v-content>
     <v-footer
       color="secondary"
@@ -324,6 +290,8 @@ import router from '../router'
         color: 'red lighten-3',
         selectedInfo: [],
         favoriteInfo: [],
+        submited: false,
+      
        
   
         dbInfo: [],
@@ -347,7 +315,7 @@ import router from '../router'
       numberOfPages () {
         return Math.ceil(this.dbInfo.length / this.itemsPerPage)
       },
-   
+      
     },
     methods: {
       keywordsearch(){
@@ -408,9 +376,9 @@ import router from '../router'
         // console.log("this is the recipe id", id)
         // // this.$store.getters.favorite.push(id)
         // console.log(this.$store.getters.favorite)
-   
-        this.$store.getters.favorite.push(id)
-      
+
+        this.$store.getters.favorite.push(id),
+        
         // console.log(this.$store.getters.favorite)
         // console.log(favoriteRecipes.favorites)
         axios({
