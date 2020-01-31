@@ -17,6 +17,7 @@ export default new Vuex.Store({
             firstName: '',
             lastName: '',
             email: '',
+            favorites: '',
         },
         // For managing User logins
         authUser: null,
@@ -28,7 +29,7 @@ export default new Vuex.Store({
             refreshExpiration: localStorage.getItem('refreshExpiration'),
             accessExpiration: localStorage.getItem('accessExpiration'), 
         },
-
+        // Endpoints to access the backend 
         endpoints: {
             obtainJWT: 'http://localhost:8000/auth/jwt/create/',
             refreshJWT: 'http://localhost:8000/auth/jwt/refresh/',
@@ -36,6 +37,7 @@ export default new Vuex.Store({
             baseURL: 'http://localhost:8000',
             baseAPI: 'http://localhost:8000/api/v1',
         },
+        // Rules for the form 
         formRules: {
 			name: [
 				v => !!v || 'Name is required.',
@@ -62,19 +64,28 @@ export default new Vuex.Store({
             code: [ v => !!v || 'Please input Organization code.' ],
         }
     },
-
+    // the getters take in the state of the yellow sections and stores it for later use 
     getters: {
         // loggedIn (state){ return !!state.authUser},
-        user(state){ return state.user },
-        username(state){ return state.user.username },
+        //this is the user id
+        userId(state){ return state.authUser.user_id},
+        //this is the user name 
+        user(state){ return state.authUser.username },
+        //this gets the favorites
+        favorite(state){ return state.authUser.favorites },
+        //this returns if they are authenticated
         isAuthenticated(state){ return state.isAuthenticated },
+        //this is the access token 
         accessToken(state){ return state.jwt.access },
+        //this is the refresh token
         refreshToken(state){ return state.jwt.refresh },
+        //this is the endpoints 
         endpoints(state){ return state.endpoints },
-        organization(state) { return state.organization },
+        //this is the form rules 
         formRules(state){ return state.formRules }
         },
      // end Vuex state
+
     mutations: {
     
         // Login: set the authenticated user in state
@@ -93,7 +104,6 @@ export default new Vuex.Store({
         // Update local storage and Vuex state with new JWT
         updateToken(state, newToken) {
             // Broken into two if statements as the refresh token is not always provided
-            
             if(newToken.access){
                 state.jwt.access = newToken.access;
 				state.jwt.accessExpiration = jwt_decode(newToken.access).exp;	
@@ -114,20 +124,25 @@ export default new Vuex.Store({
             state.jwt_access = null;
             state.jwt_refresh = null;
         },
-    },  // end Vuex mutations
+    }, 
+     // end Vuex mutations
     actions: {
+        // Delete tokens and log user out this is for the logout button
+
+
         deleteToken() {
             this.commit("removeToken")
             this.commit("unsetAuthUser")
             router.push({name: "home"})
         },
+
+        // Get tokens and update user information (payload is username and password)
         obtainToken(context, payload) {
             console.log("hello")
-            // Get tokens and update user information (payload is username and password)
             axios.post(this.state.endpoints.obtainJWT, payload)
                 .then(response => {
                     
-                    // update 
+                    // update token with the response data that comes back from the post
                     this.commit('updateToken', response.data);
                 
                     // Set state information for logged in user
@@ -136,6 +151,7 @@ export default new Vuex.Store({
                         // use jwt_decode library to extract user_id from JWT 
                         // const decoded = jwt_decode(token);
                         // const user_id = decoded.user_id
+
                         // send user_id next axios call, to pull User info from API
                         return axios({
                             method: 'get',
@@ -148,8 +164,8 @@ export default new Vuex.Store({
                         alert("trying to decode user from access token but no token found!")
                     }
                 })
-                // Set user information
-                .then(response => {
+                // Set user information 
+                .then(response => { console.log("this is the response.data ", response.data)
                     this.commit('setAuthUser', {
                         // in Vuex store, add user information retrieved from API
                         authUser: {
@@ -157,7 +173,7 @@ export default new Vuex.Store({
                             username: response.data.username,
                             first_name: response.data.first_name,
                             last_name: response.data.last_name,
-                            saved_items: [],
+                            favorites: [],
                         },
                         isAuthenticated: true,
                     })
@@ -170,31 +186,36 @@ export default new Vuex.Store({
                 });
          
         },
-        
+        // this is the user login page payload is (username, password)
         userSetup(cotext, payload){
             const registrationPayload ={
                 username: payload.username,
                 password: payload.password,
+                first_name: payload.firstName,
+                last_name: payload.lastName,
                 email: payload.email,
             }
             console.log("this is user setup")
-                // commit('auth_request')
+                // make a axios call to post he information to the backend and register the user with ethe registrationPayload
             axios({
                 method: 'post',
                 url: `${this.state.endpoints.baseURL}/auth/users/`,
                 data: registrationPayload,
             })
+            //take in the response and set the payload userID
             .then(response => {
-                console.log(`User ${response.data.username} create Good.`)
+                console.log(`User ${response.data.id} create Good.`)
 
                 payload['userId'] = response.data.id
-                this.state.user['userId'] = response.date.id
 
+                //set the state of the user with the response from the post request
+                this.state.user['userId'] = response.date.id
+                //set the loginPayload
                 const loginPayload = {
                     username: payload.username,
                     password: payload.username
                 }
-
+                //on the return set another axios call to obtain a token for the user trying to login
                 return axios({
                     method: 'post',
                     url: this.state.endpoints.obtainJWT,
@@ -204,23 +225,25 @@ export default new Vuex.Store({
 
                     // Print status message to console
                     console.log(`User logged in after registration.`)
-
+                    
+                    // set the state and change the isAuthenticated to true
                     this.state.isAuthenticated = true
     
                     // Store tokens
                     this.commit('updateTokens', response.data)
-                    router.push({name: 'userdashboard'})
-                    // Post Manager/User info
-                    // this.dispatch('updateUserBackend', fullUserPayload)
-    
+                    router.push({name: 'userDashBoard'})
+                
                     // Send to home page after registration
                     // setTimeout(() => {
                     //     router.push({name: 'userdashboard'})
                     // }, 300)
+
+                    //set the userId
                     let userId = jwt_decode(this.state.jwt.access).user_id
+                    //return an axios call that gets from the back end 
                     return axios({
                         method: 'get',
-                        url: `${this.state.endpoints.baseAPI}/managers/${userId}/`,
+                        url: `${this.state.endpoints.baseAPI}/users/${userId}/`,
                         headers: {
                             authorization: `Bearer ${this.state.jwt.access}`
                         }
@@ -230,6 +253,7 @@ export default new Vuex.Store({
                     this.commit('updateUserInfoOnly', response.data.user)
                 })
                 })
+                //catch any erros and display an alert 
                 .catch(error => {
                     if (error =='Error: request failed with status code 401') {
                         alert('Invalid credentials')
@@ -238,7 +262,7 @@ export default new Vuex.Store({
             },
         },
 
-        // Delete stored token, both in localStorage and state
+        // Delete stored token, both in localStorage and state and re route to the home page 
         deleteToken() {
             this.commit("removeToken")
             this.commit("unsetAuthUser")
@@ -282,6 +306,7 @@ export default new Vuex.Store({
                 alert("No token detected.")
             }
         },
+        //this is just a test 
         test() {
             axios({
                 method: 'get',
@@ -292,7 +317,7 @@ export default new Vuex.Store({
             })
             .then(response => console.log(response))
         },
-
+        //update the backend with a payload  of username first last email 
         updateUserBackend(context, payload){
 
             // Patch user model
@@ -312,11 +337,11 @@ export default new Vuex.Store({
             .then(response => {
                 console.log(response)
 
-                this.commit('updateUserInfoOnly', response.data)
+                // this.commit('updateUserInfoOnly', response.data)
             })
             .catch(error => console.log(error))
             
-            // Patch manager model
+            // Patch user model
             axios({
                 method: 'patch',
                 url: `${this.state.endpoints.baseAPI}/managers/${payload.userId}/`,
@@ -330,7 +355,7 @@ export default new Vuex.Store({
             })
             .then(response => {
                 console.log(response)
-                this.commit('updateManagerInfoOnly', response.data)
+                // this.commit('updateUserInfoOnly', response.data)
             })
             .catch(error => console.log(error))
         }

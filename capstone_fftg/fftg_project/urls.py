@@ -28,7 +28,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     # path('auth/', obtain_jwt_token),
     path('api/v1/', include('api.urls')),
-    # path('api-auth/', include('rest_framework.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     # path('', include('recipe_app.urls')),
     # # path('hello/', views.HelloView.as_view(), name='hello'),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

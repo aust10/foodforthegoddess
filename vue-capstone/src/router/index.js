@@ -5,6 +5,7 @@ import Home from '../components/Home.vue'
 import Login from '../components/Login.vue'
 import UserDashBoard from '../components/UserDashBoard'
 import SearchResult from '../components/SearchResult'
+import Favorites from '../components/Favorites'
 import index from '../store'
 // import { authComputed } from '../store/helpers'
 
@@ -28,6 +29,18 @@ const router = new VueRouter({
       path: '/Login',
       name: 'testLogin',
       component: Login
+    },
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: Favorites,
+      beforeEnter (to, from, next){
+        if(index.state.isAuthenticated) {
+          next ()
+        } else {
+          next('/Login')
+        }
+      }
     },
     {
       path: '/results',

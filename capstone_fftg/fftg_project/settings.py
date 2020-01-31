@@ -142,10 +142,11 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 REST_FRAMEWORK ={
-    'DEFAULT_PERMISION_CLASSES': 
+    'DEFAULT_PERMISSION_CLASSES': 
         ['rest_framework.permissions.IsAuthenticated'],
     'DEFAULT_AUTHENTICATION_CLASSES':
-        ['rest_framework_simplejwt.authentication.JWTAuthentication'],
+        ['rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication'],
     'DEFAULT_FILTER_BACKENDS':                       ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 CORS_ORIGIN_ALLOW_ALL = False

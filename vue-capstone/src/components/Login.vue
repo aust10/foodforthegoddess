@@ -69,30 +69,28 @@
                     :rules="rules.username"
                     type="text"
                   />
-             <v-text-field
-								id="password"
-								label="Password"
-								name="password"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-								v-model="password"
-                :type="showPassword ? 'text' : 'password'"
-								:rules="rules.password"
-                @click:append="showPassword = !showPassword"
-		
-							/>
-							<v-text-field
-								v-if="registermode"
-								id="password2"
-								label="Re-enter Password"
-								name="password2"
-                :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"	
-								v-model="password2"
-                :type="showPassword ? 'text' : 'password'"
-								:rules="password2Validation"
-                @click:append="showPassword2 = !showPassword2"
-
-							/>
-              <v-checkbox label="Agree to terms and conditions" v-if="registermode" v-model="termsCheckbox" required></v-checkbox>
+                  <v-text-field
+                      id="password"
+                      label="Password"
+                      name="password"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      v-model="password"
+                      :type="showPassword ? 'text' : 'password'"
+                      :rules="rules.password"
+                      @click:append="showPassword = !showPassword"
+                    />
+                    <v-text-field
+                      v-if="registermode"
+                      id="password2"
+                      label="Re-enter Password"
+                      name="password2"
+                      :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"	
+                      v-model="password2"
+                      :type="showPassword ? 'text' : 'password'"
+                      :rules="password2Validation"
+                      @click:append="showPassword2 = !showPassword2"
+                    />
+                    <v-checkbox label="Agree to terms and conditions" v-if="registermode" v-model="termsCheckbox" required></v-checkbox>
                 </v-form>
               </v-card-text>
               <v-card-actions>
