@@ -49,31 +49,20 @@
         >
           <v-card
               class="align-right ma-6 pa-2 mb-1 info"
-              max-width="60%"
+              width="60%"
           >
               <v-img
               class="white--text align-end"
               height="300px"
-              :src="require('../images/FFTG_logo.png')"
+              :src='this.title_card.picture'
               >
-              <v-card-title class="red--text">Today's top recipe</v-card-title>
               </v-img>
-
-              <v-card-text class="text--primary">
-              <div>Whitehaven Beach</div>
-              </v-card-text>
-
+              <v-card-title class="text--primary font-italic">{{this.title_card.recipe_name}}</v-card-title>
               <v-card-actions>
               <v-btn
-                color="orange"
+                color="orange text-outline"
                 text
-              >
-                Share
-              </v-btn>
-
-              <v-btn
-                color="orange"
-                text
+                @click="showSelected(title_card.id)"
               >
                 Explore
               </v-btn>
@@ -107,7 +96,7 @@
     </v-row>
   </v-container>
     <v-content
-      class="pa-5 pt-0 success">
+      class="pa-4 pt-0 success">
         <v-container fluid>
             <v-data-iterator
             v-show="!this.selectedInfo.length"
@@ -131,22 +120,25 @@
                     md="4"
                     lg="3"
                 >
+                <!-- this is the card title -->
                     <v-card>
                     <v-card-title class="subheading font-weight-bold info">{{ item.recipe_name }}</v-card-title>
-
                     <v-divider></v-divider>
 
                     <v-list dense>
-
+                      <!-- this is the card image -->
                         <v-img
                         class="white--text align-end"
                         height="200px"
                         :src='item.picture'
+                        @click="showSelected(item.id)"
                         >
                         </v-img>
                   
-
-                        <v-list-item-content class="black--text" v-for="category in item.category_info" :key = "category">Category:{{ category.name }}</v-list-item-content>
+                        <!-- this is the card content -->
+                        <v-list-item-content class="black--text" v-for="category in item.category_info" :key = "category">
+                          Category:{{ category.name }}
+                        </v-list-item-content>
 
                        
                     </v-list>
@@ -194,17 +186,22 @@
         >
           <h1 v-show="this.selectedInfo.length">Results:</h1>
         <v-card
-            class="ma-6 mb-1 pa-6 mr-6 "
+            class="ma-3 mb-1 pa-4 "
             outlined
-            v-for="name in selectedInfo" :key = "name"
+            v-for="name in selectedInfo" :key = "name.id"
           >
           <v-card-title class="black--text justify-center" >{{ name.recipe_name }}
             <!-- <v-col cols="12" sm="3"> -->
             <v-btn 
-            text icon color="pink" 
-            @click="favorite(name.id),submited=true"
-            :disabled="submited"
-          >
+            x-large
+            class="ml-5"
+            text icon :color = "$store.getters.favorite.indexOf(name.id)>-1 ? 'pink' : 'gray'" 
+            @click="favorite(name.id)"
+            >
+<!--             
+            ,submited=true"
+            :disabled="submited" -->
+
               <v-icon>mdi-heart</v-icon>
             </v-btn>
           <!-- </v-col> -->
@@ -251,6 +248,74 @@
           </v-card-text>
           </v-card>        
         </v-container>
+        <v-container
+            max-width="200"
+            v-show="!this.selectedInfo.length"
+        >
+          <h1 v-show="Object.keys(caroselFinder).length">Carosel</h1>
+        <v-card
+            class="ma-3 mb-1 pa-4 "
+            outlined
+            v-if="Object.keys(caroselFinder).length"
+          >
+          <v-card-title class="black--text justify-center" >{{ this.caroselFinder.recipe_name }}
+            <!-- <v-col cols="12" sm="3"> -->
+            <v-btn 
+            x-large
+            class="ml-5"
+            text icon :color = "$store.getters.favorite.indexOf(this.caroselFinder.id)>-1 ? 'pink' : 'gray'" 
+            @click="favorite(caroselFinder.id)"
+            >
+<!--             
+            ,submited=true"
+            :disabled="submited" -->
+
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+          <!-- </v-col> -->
+            <!-- <v-icon 
+            color="red darken-4" class="ml-12" @click="favorite(name.id), !show" >mdi-heart-outline</v-icon> -->
+          </v-card-title>
+            <v-container
+              fill-height="300px"
+              fill-width="500">
+              <v-layout 
+                  align-center
+                  fill-height="300px"
+                  fill-width="500">
+                <v-img
+                  class="white--text align-end ml-3 info "
+                  height="300px"
+                  width="500"
+                  :src='this.caroselFinder.picture'
+                >
+                </v-img>
+              </v-layout>
+            </v-container>
+
+          <v-card-text class="text--primary">
+            <v-row justify="center">
+              <v-expansion-panels popout>
+                <v-expansion-panel
+                  v-for="(name,i) in 1"
+                  :key="i"
+                  :hover="hover"
+                >
+                  <v-expansion-panel-header class="gold">Check out the Recipe!</v-expansion-panel-header>
+                  <v-expansion-panel-content v-model="hover">
+                    <ul class="mt-2 mb-5" >
+                      <li v-for="ingredient in caroselFinder.ingredient_info" :key="ingredient.id">
+                        {{ingredient.ingredients}}
+                      </li>
+                    </ul>
+                    <p>{{caroselFinder.body}}</p>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </v-row>
+          </v-card-text>
+          </v-card>        
+        </v-container>
         
     </v-content>
     <v-footer
@@ -290,7 +355,10 @@ import router from '../router'
         color: 'red lighten-3',
         selectedInfo: [],
         favoriteInfo: [],
+        caroselFinder: [],
         submited: false,
+        title_card: [],
+      
       
        
   
@@ -318,6 +386,34 @@ import router from '../router'
       
     },
     methods: {
+      showSelected(id){
+        // console.log(this.dbInfo)
+        console.log(this.title_card)
+        // console.log("this is carosel finder"+ `${id}`)
+          axios({
+          method: "get",
+          url: `http://localhost:8000/api/v1/recipes/${id}/`,
+          headers:{
+            authorization:
+            `Bearer ${this.$store.getters.accessToken}`
+          }
+        })
+        .then(response => {
+          this.caroselFinder = response.data
+
+          // this.$emit('searched', this.selectedInfo)
+        }
+          )
+
+
+        // bus.$emit(console.log('infochanged', this.selectedInfo))
+        // this.$router.push('/results')
+          // router.push({name:'searchResult'})
+        .catch(error => {
+          alert("Please try another search");
+          console.log(error);
+        });
+      },
       keywordsearch(){
         // console.log("this is the user id", this.$store.getters.userId, "this is the user name", this.$store.getters.favorite)
         console.log(this.$store.state.authUser)
@@ -344,6 +440,9 @@ import router from '../router'
           console.log(error);
         });
       },
+      randomFinder(){
+        // console.log(response.data[Math.floor(Math.random()*response.data.length)])
+      },
       getRecipes(){
           axios({
           method: "get",
@@ -354,6 +453,21 @@ import router from '../router'
           }
           })
           .then(response => this.dbInfo = response.data)
+
+          return axios({
+          method: "get",
+          url: 'http://localhost:8000/api/v1/recipes/',
+          headers:{
+            authorization:
+            `Bearer ${this.$store.getters.accessToken}`
+          }
+          })
+          .then(response => this.title_card = response.data[Math.floor(Math.random()*response.data.length)])
+          // response.data)
+
+          // .then(this.title_card = console.log(this.dbInfo))
+          // .then(this.title_card = console.log("crzay" + this.dbInfo[Math.floor(Math.random()*this.dbInfo.length)]))
+         
           
           .catch(error => {
               alert("Error with request...not authenticated");
@@ -376,6 +490,7 @@ import router from '../router'
         // console.log("this is the recipe id", id)
         // // this.$store.getters.favorite.push(id)
         // console.log(this.$store.getters.favorite)
+        
 
         this.$store.getters.favorite.push(id),
         

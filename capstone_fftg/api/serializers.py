@@ -29,7 +29,7 @@ class IngredientsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Ingredients
         fields =(
-            'ingredients',
+            'ingredients', 'id'
         )
 
 # class FavoriteSerializer(serializers.ModelSerializer):

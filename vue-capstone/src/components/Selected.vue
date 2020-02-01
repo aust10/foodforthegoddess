@@ -7,11 +7,11 @@
       dark
     >
     
-      <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
+      <v-toolbar-title>food4thegoddess</v-toolbar-title>
       <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
-       <v-toolbar-title class="display-1 font-italic">Favorites</v-toolbar-title>
+       
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
@@ -21,7 +21,7 @@
         <v-container
             max-width="200"
         >
-         
+          <!-- <h1>Favorites:</h1> -->
         <v-card
             class="ma-6 mb-1 pa-6 mr-6 "
             outlined
