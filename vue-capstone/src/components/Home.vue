@@ -7,27 +7,31 @@
       color="secondary"
       dark
     >
-      <v-toolbar-title>food4thegoddess</v-toolbar-title>
+      <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <h1 class="headline font-italic">A Thinking Man’s Guide to Cooking for Women</h1>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
+        
         <!-- <v-spacer></v-spacer> -->
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <!-- <v-btn rounded color="transparent" @click="obtainToken">Favorites</v-btn> -->
         <v-btn to="/login" rounded color="transparent" @click="getToken">Login</v-btn>
     </v-app-bar>
-        <v-container  color="#FADCCA" fluid>
+        <v-container color="#FADCCA" fluid>
     <v-row>
       <v-col cols="12">
           <!-- :align="alignment" -->
         <v-row
-          class="pb-0 "
+          class="pb-0 justify-space-between"
          
         >
         <v-card
-            width="25%"
-            class="ma-6 mb-1 pa-6 mr-6 info"
+            width="30%"
+            class="ma-6 mb-1 pa-6 mr-6 info "
             outlined
           >
           <v-img
@@ -37,78 +41,49 @@
             :src="require('../images/FFTG_logo.png')"
           >
           </v-img>
-          <v-card-title class="black--text">Food for thought</v-card-title>
+          <v-card-title class="black--text">So why a cookbook?</v-card-title>
           <v-card-text class="text--primary">
             <div>
-            “Food for the Goddess” provides men – and women, for that matter -- one avenue for
-            getting back in touch with the feminine principles that move in mysterious and powerful
-            ways in our world. By showing respect for women through the loving preparation and
-            presentation of food, a man can put himself in proper alignment with the Cosmic Order.
+            “Food for the Goddess” provides men – and women, for that matter -- one avenue for getting back in touch with the feminine principles that move in mysterious and powerful
+            ways in our world.<br><br>By showing respect for women through the loving preparation and
+            presentation of food, a man can put himself in proper alignment with the Cosmic Order.<br><br>
             And he can have a good time and be useful in the bargain.
             </div>
           </v-card-text>
           </v-card>
-          <v-card
-              class=" ma-6 pa-2 mb-1 info"
-              max-width="40%"
-          >
-              <v-img
-              class="white--text "
-              height="300px"
-              :src="require('../images/sample.jpg')"
-              >
-              <v-card-title class="red--text">Today's top recipe</v-card-title>
-              </v-img>
-
-              <v-card-text class="text--primary">
-              <div>Whitehaven Beach</div>
-              </v-card-text>
-
-              <v-card-actions>
-              <v-btn
-                color="orange"
-                text
-              >
-                Share
-              </v-btn>
-
-              <v-btn
-                color="orange"
-                text
-              >
-                Explore
-              </v-btn>
-              </v-card-actions>
-          </v-card>
-          
           
           <v-card
-            width="23%"
+            width="28%"
             class="ma-6 mb-1 pa-6 mr-6 info "
             outlined
           >
           <v-card
-            outlined>
-          <v-card-title class="black--text ">okra</v-card-title>
-          <v-img
-            class="white--text  ml-3"
-            height="100px"
-            width=""
-            :src="require('../images/sample.jpg')"
-          >
-          </v-img>
+            outlined
+            class="gold">
+          <h1 class="text-center display-1 mt-4 ">Who is the goddess?
+          </h1>
+          <div class="text-center">
+            She is your mother.<br> She is your sister.<br> Your lover. Your wife. Your friend.
+          </div>
+
+
+          <v-card class="ma-3">
+            <v-img
+              class="white--text ma-3 mt-"
+              height=""
+              width=""
+              :src="require('../images/FFTG_logo.png')"
+            >
+            </v-img>
+          </v-card>
            <v-card-text class="text--primary">
-            <div>
-              <p class="text-center">
-              Discription of the food above
-              </p>
-            </div>
+          
           </v-card-text>
           </v-card>
-          <v-card
+          <!-- <v-card
             class="mt-1"
             outlined>
-          <v-card-title class="">okra</v-card-title>
+          <v-card-title class="text-center">okra</v-card-title>
             <v-img
             class="white--text  ml-3 "
             height="100px"
@@ -123,7 +98,28 @@
               </p>
             </div>
           </v-card-text>
+          </v-card> -->
           </v-card>
+                  <v-card
+            width="30%"
+            class="ma-6 mb-1 pa-6 mr-6 info"
+            outlined
+          >
+          <v-card-title class="black--text  text-center display-1">Why Should a Man<br> Know How to Cook?</v-card-title>
+          <v-card-text class="text--primary ">
+            <div>
+            “What do women want?” Sigmund Freud famously asked.
+            <br><br>
+            How the heck should I know? If the good doctor couldn’t work it out after all those years, you can’t very well expect me to have the answer.
+            <br><br>
+            I can tell you something women don’t want. They don’t want to spend three-quarters of a lifetime churning out two or three meals a day for the men and children in their local social unit just because tradition says they must.
+            <br><br>
+            <div class="text-center ">
+              <p class="font-weight-bold">And most of all, they don’t want to be taken for granted.</p>
+              <p class="font-italic">Log in and find out what awaits you!</p>
+            </div>
+            </div>
+          </v-card-text>
           </v-card>
         </v-row>
       </v-col>

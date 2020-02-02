@@ -30,7 +30,7 @@
             label="Search"
         ></v-text-field>
         <!-- <v-spacer></v-spacer> -->
-        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch"><v-icon>mdi-magnify</v-icon></v-btn>
+        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch" @keydown.enter="keywordsearch"><v-icon>mdi-magnify</v-icon></v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
@@ -57,8 +57,17 @@
               :src='this.title_card.picture'
               >
               </v-img>
-              <v-card-title class="text--primary font-italic">{{this.title_card.recipe_name}}</v-card-title>
-              <v-card-actions>
+              <v-card-title class="text--primary font-italic ml-10 mr-10">{{this.title_card.recipe_name}}
+              <v-spacer></v-spacer>
+              <v-btn
+                color="orange black-text-outline"
+                text
+                @click="showSelected(title_card.id)"
+              >
+                Explore
+              </v-btn>
+              </v-card-title>
+              <!-- <v-card-actions>
               <v-btn
                 color="orange text-outline"
                 text
@@ -66,11 +75,11 @@
               >
                 Explore
               </v-btn>
-              </v-card-actions>
+              </v-card-actions> -->
           </v-card>
           <v-card
             width="30%"
-            class="ma-6 mb-1 pa-6 mr-6 "
+            class="ma-6 mb-1 pa-6 mr-6 info"
             outlined
           >
           <v-img
@@ -80,7 +89,7 @@
             :src="require('../images/FFTG_logo.png')"
           >
           </v-img>
-          <v-card-title class="black--text">Food for thought</v-card-title>
+          <v-card-title class="black--text ">Food for thought</v-card-title>
           <v-card-text class="text--primary">
             <div>
             “Food for the Goddess” provides men – and women, for that matter -- one avenue for
@@ -96,7 +105,9 @@
     </v-row>
   </v-container>
     <v-content
-      class="pa-4 pt-0 success">
+      class="pa-4 pt-0 success"
+      >
+        
         <v-container fluid>
             <v-data-iterator
             v-show="!this.selectedInfo.length"
@@ -107,6 +118,7 @@
             :sort-by="sortBy"
             :sort-desc="sortDesc"
             hide-default-footer
+            
             >
             <v-spacer></v-spacer>
 
@@ -121,11 +133,14 @@
                     lg="3"
                 >
                 <!-- this is the card title -->
-                    <v-card>
-                    <v-card-title class="subheading font-weight-bold info">{{ item.recipe_name }}</v-card-title>
+                  <v-hover>
+                    <v-card
+                    slot-scope="{ hover }"
+                    :class="`elevation-${hover ? 12 : 2}`">
+                    <v-card-title class="font-family-dancing-script-cursive subheading font-weight-bold info">{{ item.recipe_name }}</v-card-title>
                     <v-divider></v-divider>
 
-                    <v-list dense>
+                    <v-list class="pt-0" dense>
                       <!-- this is the card image -->
                         <v-img
                         class="white--text align-end"
@@ -136,13 +151,17 @@
                         </v-img>
                   
                         <!-- this is the card content -->
-                        <v-list-item-content class="black--text" v-for="category in item.category_info" :key = "category">
-                          Category:{{ category.name }}
+                        <v-list-item-content class="black--text justify-center font-italic font-weight-thin	" 
+                        @click="showSelected(item.id)"
+                        >
+                          See More 
                         </v-list-item-content>
-
+                        <!-- v-for="category in item.category_info" :key = "category" -->
+<!-- {{ category.name }} -->
                        
                     </v-list>
                     </v-card>
+                   </v-hover>
                 </v-col>
                 </v-row>
             </template>
@@ -252,7 +271,7 @@
             max-width="200"
             v-show="!this.selectedInfo.length"
         >
-          <h1 v-show="Object.keys(caroselFinder).length">Carosel</h1>
+          <h1 v-show="Object.keys(caroselFinder).length"></h1>
         <v-card
             class="ma-3 mb-1 pa-4 "
             outlined
@@ -386,6 +405,7 @@ import router from '../router'
       
     },
     methods: {
+
       showSelected(id){
         // console.log(this.dbInfo)
         console.log(this.title_card)
@@ -573,6 +593,16 @@ import router from '../router'
     },
     mounted() {
         this.getRecipes()
+    //     window.addEventListener("keydown", function(event){
+    //         if (event.defaultPrevented) {
+    //             return;
+    //         }
+    //         if (event.keyCode=== 13) {
+    //             keywordsearch(event.key)
+    //             return(this.current)
+    //         }
+    // })
+  
         
         // inspectToken()
     }

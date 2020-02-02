@@ -23,13 +23,13 @@
         >
          
         <v-card
-            class="ma-6 mb-1 pa-6 mr-6 "
+            class="ma-6 mb-1 pa-6 mr-6 info"
             outlined
             v-for="recipe in this.favoriteInfo" :key = "recipe"
           >
              <v-icon
             color="red darken-4" large class=" ml-12" @click="deleteFavorite(recipe.id)">mdi-close-outline</v-icon>
-          <v-card-title class="black--text justify-center" >{{ recipe.recipe_name }}
+          <v-card-title class="pt-0 black--text justify-center display-1 font-weight-bold" >{{ recipe.recipe_name }}
           </v-card-title>
             <v-container
               fill-height="300px"
@@ -47,8 +47,9 @@
                 </v-img>
               </v-layout>
             </v-container>
-
-          <v-card-text class="text--primary">
+          <v-card-text 
+          class="text--primary"
+          >
             <v-row justify="center">
               <v-expansion-panels popout>
                 <v-expansion-panel
@@ -69,7 +70,7 @@
               </v-expansion-panels>
             </v-row>
           </v-card-text>
-          </v-card>        
+          </v-card>  
         </v-container>
     <v-footer
       color="secondary"

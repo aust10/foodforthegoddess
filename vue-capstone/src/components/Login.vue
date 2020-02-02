@@ -95,7 +95,7 @@
               </v-card-text>
               <v-card-actions>
 
-                <v-btn color="primary" v-if="!registermode" @click="registermode = !registermode">Register new user
+                <v-btn color="gold" v-if="!registermode" @click="registermode = !registermode">Register new user
                 </v-btn>
 
                 <v-btn color="primary" v-if="registermode" @click="registermode = !registermode">Back to login...
@@ -103,10 +103,10 @@
 
                 <v-spacer/>
 
-                <v-btn color="primary" v-if="!registermode" @click="getToken">Login
+                <v-btn color="gold" v-if="!registermode" @click="getToken">Login
                 </v-btn>
 
-                <v-btn color="success" v-if="registermode" @click="register" :disabled="!(formValidity && termsCheckbox)">Register
+                <v-btn color="gold" v-if="registermode" @click="register" :disabled="!(formValidity && termsCheckbox)">Register
                 </v-btn>
           
                 <!-- <v-btn color="secondary">Login</v-btn> -->
