@@ -33,7 +33,6 @@ export default new Vuex.Store({
         endpoints: {
             obtainJWT: 'http://localhost:8000/auth/jwt/create/',
             refreshJWT: 'http://localhost:8000/auth/jwt/refresh/',
-            // userCreate: 'http://localhost:8000/auth/jwt/users/',
             baseURL: 'http://localhost:8000',
             baseAPI: 'http://localhost:8000/api/v1',
         },

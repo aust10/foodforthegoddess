@@ -63,6 +63,10 @@ class Recipe(models.Model):
     def __str__(self):
         return self.recipe_name
 
+
+
+
+
 # class User(models.Model):
 #     user = models.ForeignKey(User, unique = True, on_delete = models.CASCADE)
 #     favorites = models.IntegerField()

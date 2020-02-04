@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-content>
+    <v-content class="basckground">
       <v-container
         class="fill-height"
         fluid
@@ -24,7 +24,7 @@
                 <v-spacer />
                 <v-tooltip bottom>
                 </v-tooltip>
-              </v-toolbar>
+                </v-toolbar>
               <v-card-text>
                 <v-form v-model="formValidity" ref="registrationForm">
                    <v-text-field
@@ -109,7 +109,6 @@
                 <v-btn color="gold" v-if="registermode" @click="register" :disabled="!(formValidity && termsCheckbox)">Register
                 </v-btn>
           
-                <!-- <v-btn color="secondary">Login</v-btn> -->
                 <v-btn color="primary" v-if="!register" @click="register = !register">Register
                 </v-btn>
 
@@ -157,6 +156,7 @@ export default {
       this.$store.dispatch('obtainToken', payload)
       console.log("hi")
     },
+    //this is ran to register and take in the user info
   register(){
 			const payload = {
 				username: this.username,
@@ -169,7 +169,8 @@ export default {
       console.log("hi from register")
       this.$store.dispatch('userSetup', payload)
       router.push({name: 'userDashBoard'})
-		},
+    },
+    //test for making the api to ensure tokens were being recieved and stored
     testAPI() {
       axios({
         method: "get",

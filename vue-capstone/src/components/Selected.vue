@@ -5,6 +5,7 @@
       app
       color="secondary"
       dark
+      hide-on-scroll
     >
     
       <v-toolbar-title>food4thegoddess</v-toolbar-title>

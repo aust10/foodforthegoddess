@@ -1,10 +1,12 @@
 <template>
-  <v-app id="inspire">
+  <v-app class="pb-0" id="inspire">
 
     <v-app-bar
       app
       color="secondary"
       dark
+      
+    
     >
     
       <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
@@ -28,17 +30,18 @@
             solo-inverted
             hide-details
             label="Search"
+            @keyup.enter="keywordsearch"
         ></v-text-field>
         <!-- <v-spacer></v-spacer> -->
-        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch" @keydown.enter="keywordsearch"><v-icon>mdi-magnify</v-icon></v-btn>
+        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch" ><v-icon>mdi-magnify</v-icon></v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <v-btn rounded color="transparent" @click="getFavorites()">Favorites</v-btn>
+      <v-btn class="mr-2" rounded color="transparent" @click="getFavorites()">Favorites</v-btn>
       <v-btn rounded color="transparent" @click="deleteToken">Logout</v-btn>
     </v-app-bar>  
 
-    <v-container class="success" fluid>
+    <v-container class="success pb-0" fluid>
     <v-row>
       <v-col cols="12">
           <!-- :align="alignment" -->
@@ -203,9 +206,9 @@
         <v-container
             max-width="200"
         >
-          <h1 v-show="this.selectedInfo.length">Results:</h1>
+          <h1 class="ml-3" v-show="this.selectedInfo.length">You searched "{{this.search}}"</h1>
         <v-card
-            class="ma-3 mb-1 pa-4 "
+            class="ma-3 mb-1 pa-4 mb-6 info"
             outlined
             v-for="name in selectedInfo" :key = "name.id"
           >
@@ -254,12 +257,17 @@
                 >
                   <v-expansion-panel-header class="gold">Check out the Recipe!</v-expansion-panel-header>
                   <v-expansion-panel-content v-model="hover">
-                    <ul class="mt-2 mb-5" >
-                      <li v-for="ingredient in name.ingredient_info" :key="ingredient">
+                    
+                        <li class="mt-2" v-for="ingredient in name.ingredient_info" :key="ingredient">
+                          <input class="strikethrough" type="checkbox" :id="ingredient.ingredients" :value="ingredient.ingredients">
+                          <label class="ml-6" :for="ingredient.ingredients">{{ingredient.ingredients}}</label>
+                        </li>
+                    <!-- <ul class="mt-2 mb-5" >
+                      <li  v-for="ingredient in name.ingredient_info" :key="ingredient">
                         {{ingredient.ingredients}}
                       </li>
-                    </ul>
-                    <p>{{name.body}}</p>
+                    </ul> -->
+                    <p class="mt-6">{{name.body}}</p>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
@@ -273,7 +281,7 @@
         >
           <h1 v-show="Object.keys(caroselFinder).length"></h1>
         <v-card
-            class="ma-3 mb-1 pa-4 "
+            class="ma-3 mb-6 pa-4 "
             outlined
             v-if="Object.keys(caroselFinder).length"
           >
@@ -297,7 +305,8 @@
           </v-card-title>
             <v-container
               fill-height="300px"
-              fill-width="500">
+              fill-width="500"
+              class="pb-2">
               <v-layout 
                   align-center
                   fill-height="300px"
@@ -322,12 +331,16 @@
                 >
                   <v-expansion-panel-header class="gold">Check out the Recipe!</v-expansion-panel-header>
                   <v-expansion-panel-content v-model="hover">
-                    <ul class="mt-2 mb-5" >
+                      <li class="mt-2" v-for="ingredient in caroselFinder.ingredient_info" :key="ingredient.id">
+                        <input class="strikethrough" type="checkbox" :id="ingredient.ingredients" :value="ingredient.ingredients">
+                        <label class="ml-6" :for="ingredient.ingredients">{{ingredient.ingredients}}</label>
+                    </li>
+                    <!-- <ul class="mt-2 mb-5" >
                       <li v-for="ingredient in caroselFinder.ingredient_info" :key="ingredient.id">
                         {{ingredient.ingredients}}
                       </li>
-                    </ul>
-                    <p>{{caroselFinder.body}}</p>
+                    </ul> -->
+                    <p class="mt-6">{{caroselFinder.body}}</p>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
@@ -340,8 +353,10 @@
     <v-footer
       color="secondary"
       app
+      postion: absolute
+      
     >
-      <span class="white--text">&copy; 2020</span>
+      <span class="white--text">food4thegoddess &copy; 2020</span>
     </v-footer>
   </v-app>
 </template>
@@ -483,12 +498,7 @@ import router from '../router'
           }
           })
           .then(response => this.title_card = response.data[Math.floor(Math.random()*response.data.length)])
-          // response.data)
-
-          // .then(this.title_card = console.log(this.dbInfo))
-          // .then(this.title_card = console.log("crzay" + this.dbInfo[Math.floor(Math.random()*this.dbInfo.length)]))
-         
-          
+ 
           .catch(error => {
               alert("Error with request...not authenticated");
               console.log(error);
@@ -608,3 +618,11 @@ import router from '../router'
     }
   }
 </script>
+<style>
+.strikethrough:checked + label {
+  text-decoration: line-through red
+}
+main {
+  padding-bottom: 0 !important;
+}
+</style>

@@ -1,7 +1,6 @@
 <template>
   <div  class="home">
     <v-container class="success" fluid>
-      <!-- <h1>Home Page</h1> -->
       <v-app-bar
       app
       color="secondary"
@@ -15,16 +14,14 @@
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         
-        <!-- <v-spacer></v-spacer> -->
+     
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <!-- <v-btn rounded color="transparent" @click="obtainToken">Favorites</v-btn> -->
         <v-btn to="/login" rounded color="transparent" @click="getToken">Login</v-btn>
     </v-app-bar>
-        <v-container color="#FADCCA" fluid>
-    <v-row>
+        <v-container   color="#FADCCA" fluid>
+    <v-row class="pt-6 pb-6">
       <v-col cols="12">
-          <!-- :align="alignment" -->
         <v-row
           class="pb-0 justify-space-between"
          
@@ -66,7 +63,6 @@
             She is your mother.<br> She is your sister.<br> Your lover. Your wife. Your friend.
           </div>
 
-
           <v-card class="ma-3">
             <v-img
               class="white--text ma-3 mt-"
@@ -80,27 +76,8 @@
           
           </v-card-text>
           </v-card>
-          <!-- <v-card
-            class="mt-1"
-            outlined>
-          <v-card-title class="text-center">okra</v-card-title>
-            <v-img
-            class="white--text  ml-3 "
-            height="100px"
-            width=""
-            :src="require('../images/sample.jpg')"
-          >
-           </v-img>
-          <v-card-text class="text--primary">
-            <div>
-              <p class="text-center">
-              Discription of the food above
-              </p>
-            </div>
-          </v-card-text>
-          </v-card> -->
           </v-card>
-                  <v-card
+          <v-card
             width="30%"
             class="ma-6 mb-1 pa-6 mr-6 info"
             outlined
@@ -116,7 +93,8 @@
             <br><br>
             <div class="text-center ">
               <p class="font-weight-bold">And most of all, they don’t want to be taken for granted.</p>
-              <p class="font-italic">Log in and find out what awaits you!</p>
+              <br>
+              <p class="font-italic display-1">Log in and find out what awaits you!</p>
             </div>
             </div>
           </v-card-text>
@@ -131,8 +109,10 @@
     <v-footer
       color="secondary"
       app
+      position: absolute
+    
     >
-      <span class="white--text">&copy; 2020</span>
+      <span class="white--text">food4thegoddess &copy; 2020</span>
     </v-footer>
   </div>
 </template>
@@ -140,12 +120,11 @@
 export default {
   data(){
     return {
-
     }
   },
   methods: {
+    // call state obtain token here
        getToken() {
-      // call state obtain token here
       const payload = {
         username: this.username,
         password: this.password

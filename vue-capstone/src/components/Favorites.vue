@@ -1,10 +1,12 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire"
+  class="success">
 
     <v-app-bar
       app
       color="secondary"
       dark
+      hide-on-scroll
     >
     
       <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
@@ -15,20 +17,20 @@
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <v-btn rounded  color="transparent" @click="home">Home</v-btn>
+      <v-btn class="mr-2" rounded  color="transparent" @click="home">Home</v-btn>
       <v-btn rounded color="transparent" @click="logout">Logout</v-btn>
     </v-app-bar>        
-        <v-container
-            max-width="200"
-        >
+    <v-container
+            class="success"
+    >
          
         <v-card
-            class="ma-6 mb-1 pa-6 mr-6 info"
+            class="ma-6 mb-10 pa-6 mr-6 info"
             outlined
             v-for="recipe in this.favoriteInfo" :key = "recipe"
           >
              <v-icon
-            color="red darken-4" large class=" ml-12" @click="deleteFavorite(recipe.id)">mdi-close-outline</v-icon>
+            color="red darken-4" large class=" ml-12" @click="deleteFavorite(recipe)">mdi-close-outline</v-icon>
           <v-card-title class="pt-0 black--text justify-center display-1 font-weight-bold" >{{ recipe.recipe_name }}
           </v-card-title>
             <v-container
@@ -59,24 +61,24 @@
                 >
                   <v-expansion-panel-header class="gold">Check out the Recipe!</v-expansion-panel-header>
                   <v-expansion-panel-content v-model="hover">
-                    <ul class="mt-2 mb-5" >
-                      <li v-for="ingredient in recipe.ingredient_info" :key="ingredient">
-                        {{ingredient.ingredients}}
-                      </li>
-                    </ul>
-                    <p>{{recipe.body}}</p>
+                    <li class="mt-2" v-for="ingredient in recipe.ingredient_info" :key="ingredient">
+                        <input class="strikethrough" type="checkbox" :id="ingredient.ingredients" :value="ingredient.ingredients">
+                        <label class="ml-6" :for="ingredient.ingredients">{{ingredient.ingredients}}</label>
+                    </li>
+                    <p class="mt-6">{{recipe.body}}</p>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
             </v-row>
           </v-card-text>
-          </v-card>  
-        </v-container>
+        </v-card>  
+      </v-container>
     <v-footer
       color="secondary"
       app
+      postion: absolute
     >
-      <span class="white--text">&copy; 2020</span>
+      <span class="white--text">food4thegoddess &copy; 2020</span>
     </v-footer>
   </v-app>
 </template>
@@ -94,12 +96,13 @@ import router from '../router'
     },
     methods:{
       //this function takes in the id of the recipe, and then finds the index inorder to splice the index of and re write the store to patch data base
-        deleteFavorite(id) {
-  
-          this.delete = this.favoriteInfo.indexOf(id)
+      // this takes in the full recipe insted of the number because the favorite in for is not numbers it is recipes 
+        deleteFavorite(recipe) {
+         
+          this.delete = this.favoriteInfo.indexOf(recipe)
     
           this.favoriteInfo.splice(this.delete , 1)
-          // console.log("hi from deleteFavorite")
+      
           this.$store.getters.favorite.splice(this.delete, 1)
           console.log(this.$store.getters.favorite)
         
@@ -113,7 +116,6 @@ import router from '../router'
             data:{
               username: this.$store.getters.user,
               favorites: this.$store.getters.favorite,
-              // favorites: this.favoriteInfo
             }
             })
             .then((response)=> {
@@ -122,17 +124,20 @@ import router from '../router'
             .catch(error => {
                 alert("Error with request...not authenticated");
                 console.log(error);
-        });
+          });
         },
+        //logout button
         logout(){
             this.$store.dispatch('deleteToken')
         },
+        //home button
         home(){
            router.push({name: 'userDashBoard'})
         },
         check(){
           console.log(this.favoriteInfo)
         },
+        //this is an axios call to get the favorites for the user from the authUser
         getFavorites(){
             axios({
                 method: "get",
@@ -146,47 +151,23 @@ import router from '../router'
                 this.favoriteInfo = response.data.favorites_info
               console.log(this.favoriteInfo)
               },
-            //   router.push({name:'favorites'})
-                )
+              )
               .catch(error => {
                 alert("Please try another search");
                 console.log(error);
               });
             }
         },
-        deleteFavorite(id) {
-        // console.log("this is the recipe id", id)
-        // // this.$store.getters.favorite.push(id)
-        console.log('this is the getters fav',this.$store.getters.favorite)
-   
-        this.favoriteInfo.splice(id,1)
-        console.log("hi from deleteFavorite")
-        // console.log(this.$store.getters.favorite)
-        // console.log(favoriteRecipes.favorites)
-        axios({
-          method: "delete",
-          url: 'http://localhost:8000/api/v1/users/'+ this.$store.getters.userId +'/',
-          headers:{
-          authorization:
-          `Bearer ${this.$store.getters.accessToken}`
-            },
-          data:{
-            username: this.$store.getters.user,
-            favorites: this.favoriteInfo
-          }
-          })
-          .then((response)=> {
-            console.log(response);
-          })
-          .catch(error => {
-              alert("Error with request...not authenticated");
-              console.log(error);
-      });
-      },
-      
+    //this runs getFavorites right when the page is loaded 
     mounted(){
         this.getFavorites()
        
     },
 }
 </script>
+<style scoped>
+/* this is the scoped css for the strikethrough on the ingredients */
+.strikethrough:checked +label {
+  text-decoration: line-through red 
+}
+</style>
