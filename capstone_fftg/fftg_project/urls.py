@@ -26,11 +26,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
-    # path('auth/', obtain_jwt_token),
     path('api/v1/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # path('auth/', obtain_jwt_token),
     # path('', include('recipe_app.urls')),
     # # path('hello/', views.HelloView.as_view(), name='hello'),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

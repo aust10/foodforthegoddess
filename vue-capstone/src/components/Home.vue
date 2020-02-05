@@ -42,8 +42,11 @@
           <v-card-text class="text--primary">
             <div>
             “Food for the Goddess” provides men – and women, for that matter -- one avenue for getting back in touch with the feminine principles that move in mysterious and powerful
-            ways in our world.<br><br>By showing respect for women through the loving preparation and
-            presentation of food, a man can put himself in proper alignment with the Cosmic Order.<br><br>
+            ways in our world.
+            <br><br>
+            By showing respect for women through the loving preparation and
+            presentation of food, a man can put himself in proper alignment with the Cosmic Order.
+            <br><br>
             And he can have a good time and be useful in the bargain.
             </div>
           </v-card-text>

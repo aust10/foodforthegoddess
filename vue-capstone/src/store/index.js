@@ -204,16 +204,17 @@ export default new Vuex.Store({
             //take in the response and set the payload userID
             .then(response => {
                 console.log(`User ${response.data.id} create Good.`)
-
+               
                 payload['userId'] = response.data.id
 
-                //set the state of the user with the response from the post request
-                this.state.user['userId'] = response.date.id
-                //set the loginPayload
-                const loginPayload = {
+                // //set the state of the user with the response from the post request
+                // this.state.user['userId'] = response.date.id
+                // //set the loginPayload
+                let loginPayload = {
                     username: payload.username,
-                    password: payload.username
+                    password: payload.password
                 }
+                console.log("i am before the return axios")
                 //on the return set another axios call to obtain a token for the user trying to login
                 return axios({
                     method: 'post',
@@ -229,8 +230,8 @@ export default new Vuex.Store({
                     this.state.isAuthenticated = true
     
                     // Store tokens
-                    this.commit('updateTokens', response.data)
-                    router.push({name: 'userDashBoard'})
+                    this.commit('updateToken', response.data)
+                    
                 
                     // Send to home page after registration
                     // setTimeout(() => {
@@ -239,6 +240,7 @@ export default new Vuex.Store({
 
                     //set the userId
                     let userId = jwt_decode(this.state.jwt.access).user_id
+                    router.push({name: 'home'})
                     //return an axios call that gets from the back end 
                     return axios({
                         method: 'get',

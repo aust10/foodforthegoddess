@@ -10,20 +10,13 @@
     >
     
       <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
-      <!-- <div id="toppic">
-        <v-img
-              class="white--text align-end ml-3 info"
-              height="50"
-              width="40"
-              :src="require('../images/FFTG_logo.png')"
-            >
-            </v-img>
-      </div> -->
+
       <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
+
         <v-text-field
-          rounded
+            rounded
             v-model="search"
             clearable
             flat
@@ -32,26 +25,28 @@
             label="Search"
             @keyup.enter="keywordsearch"
         ></v-text-field>
-        <!-- <v-spacer></v-spacer> -->
-        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch" ><v-icon>mdi-magnify</v-icon></v-btn>
+
+        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch">
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
-      <v-btn class="mr-2" rounded color="transparent" @click="getFavorites()">Favorites</v-btn>
+      <p class="pr-5 mt-4 title font-weight-regular">{{this.$store.getters.user.toUpperCase()}}</p>
+      <v-btn class="mr-2" rounded color="transparent" key="favorites" @click="getFavorites()">Favorites</v-btn>
       <v-btn rounded color="transparent" @click="deleteToken">Logout</v-btn>
     </v-app-bar>  
 
+    <!-- card for the randomly generated top left card -->
     <v-container class="success pb-0" fluid>
     <v-row>
       <v-col cols="12">
-          <!-- :align="alignment" -->
         <v-row
           justify-space-between
           class="pb-0 justify-space-between"
-         
         >
           <v-card
-              class="align-right ma-6 pa-2 mb-1 info"
+              class="align-right ma-6 pa-6 mb-1 info"
               width="60%"
           >
               <v-img
@@ -63,22 +58,14 @@
               <v-card-title class="text--primary font-italic ml-10 mr-10">{{this.title_card.recipe_name}}
               <v-spacer></v-spacer>
               <v-btn
-                color="orange black-text-outline"
+                color="orange black black-text-outline"
                 text
                 @click="showSelected(title_card.id)"
               >
                 Explore
               </v-btn>
               </v-card-title>
-              <!-- <v-card-actions>
-              <v-btn
-                color="orange text-outline"
-                text
-                @click="showSelected(title_card.id)"
-              >
-                Explore
-              </v-btn>
-              </v-card-actions> -->
+        
           </v-card>
           <v-card
             width="30%"
@@ -95,10 +82,10 @@
           <v-card-title class="black--text ">Food for thought</v-card-title>
           <v-card-text class="text--primary">
             <div>
-            “Food for the Goddess” provides men – and women, for that matter -- one avenue for
-            getting back in touch with the feminine principles that move in mysterious and powerful
-            ways in our world. By showing respect for women through the loving preparation and
-            presentation of food, a man can put himself in proper alignment with the Cosmic Order.
+            “Food for the Goddess” provides men – and women, for that matter -- one avenue for getting back in touch with the feminine principles that move in mysterious and powerful ways in our world.
+            <br><br>
+            By showing respect for women through the loving preparation and presentation of food, a man can put himself in proper alignment with the Cosmic Order.
+            <br><br>
             And he can have a good time and be useful in the bargain.
             </div>
           </v-card-text>
@@ -110,7 +97,7 @@
     <v-content
       class="pa-4 pt-0 success"
       >
-        
+    <!-- carousel card -->
         <v-container fluid>
             <v-data-iterator
             v-show="!this.selectedInfo.length"
@@ -159,8 +146,6 @@
                         >
                           See More 
                         </v-list-item-content>
-                        <!-- v-for="category in item.category_info" :key = "category" -->
-<!-- {{ category.name }} -->
                        
                     </v-list>
                     </v-card>
@@ -203,6 +188,7 @@
             </v-data-iterator>
         </v-container>
 
+<!-- search results below -->
         <v-container
             max-width="200"
         >
@@ -210,25 +196,20 @@
         <v-card
             class="ma-3 mb-1 pa-4 mb-6 info"
             outlined
-            v-for="name in selectedInfo" :key = "name.id"
+            v-for="name in selectedInfo" :key="name.id"
           >
           <v-card-title class="black--text justify-center" >{{ name.recipe_name }}
-            <!-- <v-col cols="12" sm="3"> -->
+  
             <v-btn 
             x-large
             class="ml-5"
             text icon :color = "$store.getters.favorite.indexOf(name.id)>-1 ? 'pink' : 'gray'" 
             @click="favorite(name.id)"
             >
-<!--             
-            ,submited=true"
-            :disabled="submited" -->
 
               <v-icon>mdi-heart</v-icon>
             </v-btn>
-          <!-- </v-col> -->
-            <!-- <v-icon 
-            color="red darken-4" class="ml-12" @click="favorite(name.id), !show" >mdi-heart-outline</v-icon> -->
+       
           </v-card-title>
             <v-container
               fill-height="300px"
@@ -259,14 +240,9 @@
                   <v-expansion-panel-content v-model="hover">
                     
                         <li class="mt-2" v-for="ingredient in name.ingredient_info" :key="ingredient">
-                          <input class="strikethrough" type="checkbox" :id="ingredient.ingredients" :value="ingredient.ingredients">
+                          <input class="strikethrough" type="checkbox" :id="ingredient.ingredients" :value="ingredient.ingredients" :key="strikethrough">
                           <label class="ml-6" :for="ingredient.ingredients">{{ingredient.ingredients}}</label>
                         </li>
-                    <!-- <ul class="mt-2 mb-5" >
-                      <li  v-for="ingredient in name.ingredient_info" :key="ingredient">
-                        {{ingredient.ingredients}}
-                      </li>
-                    </ul> -->
                     <p class="mt-6">{{name.body}}</p>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
@@ -275,6 +251,9 @@
           </v-card-text>
           </v-card>        
         </v-container>
+
+        <!-- click on slide show display -->
+       
         <v-container
             max-width="200"
             v-show="!this.selectedInfo.length"
@@ -286,22 +265,17 @@
             v-if="Object.keys(caroselFinder).length"
           >
           <v-card-title class="black--text justify-center" >{{ this.caroselFinder.recipe_name }}
-            <!-- <v-col cols="12" sm="3"> -->
+      
             <v-btn 
             x-large
             class="ml-5"
             text icon :color = "$store.getters.favorite.indexOf(this.caroselFinder.id)>-1 ? 'pink' : 'gray'" 
             @click="favorite(caroselFinder.id)"
             >
-<!--             
-            ,submited=true"
-            :disabled="submited" -->
 
               <v-icon>mdi-heart</v-icon>
             </v-btn>
-          <!-- </v-col> -->
-            <!-- <v-icon 
-            color="red darken-4" class="ml-12" @click="favorite(name.id), !show" >mdi-heart-outline</v-icon> -->
+ 
           </v-card-title>
             <v-container
               fill-height="300px"
@@ -335,12 +309,8 @@
                         <input class="strikethrough" type="checkbox" :id="ingredient.ingredients" :value="ingredient.ingredients">
                         <label class="ml-6" :for="ingredient.ingredients">{{ingredient.ingredients}}</label>
                     </li>
-                    <!-- <ul class="mt-2 mb-5" >
-                      <li v-for="ingredient in caroselFinder.ingredient_info" :key="ingredient.id">
-                        {{ingredient.ingredients}}
-                      </li>
-                    </ul> -->
-                    <p class="mt-6">{{caroselFinder.body}}</p>
+             
+                    <p class="mt-6">{{caroselFinder.body|linebreaks}}</p>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
@@ -392,11 +362,10 @@ import router from '../router'
         caroselFinder: [],
         submited: false,
         title_card: [],
-      
-      
-       
-  
+        hover: '',
+        strikethrough:'',
         dbInfo: [],
+
         items: [
          {
           text: "Keywords",
@@ -414,13 +383,14 @@ import router from '../router'
       }
     },
     computed: {
+      //method for the carousel pages
       numberOfPages () {
         return Math.ceil(this.dbInfo.length / this.itemsPerPage)
       },
       
     },
     methods: {
-
+      //method for selecting the carosel items
       showSelected(id){
         // console.log(this.dbInfo)
         console.log(this.title_card)
@@ -435,20 +405,15 @@ import router from '../router'
         })
         .then(response => {
           this.caroselFinder = response.data
-
-          // this.$emit('searched', this.selectedInfo)
         }
           )
 
-
-        // bus.$emit(console.log('infochanged', this.selectedInfo))
-        // this.$router.push('/results')
-          // router.push({name:'searchResult'})
         .catch(error => {
           alert("Please try another search");
           console.log(error);
         });
       },
+      //method for searching recipes
       keywordsearch(){
         // console.log("this is the user id", this.$store.getters.userId, "this is the user name", this.$store.getters.favorite)
         console.log(this.$store.state.authUser)
@@ -462,14 +427,8 @@ import router from '../router'
         })
         .then(response => {
           this.selectedInfo = response.data
-          // this.$emit('searched', this.selectedInfo)
         }
           )
-
-
-        // bus.$emit(console.log('infochanged', this.selectedInfo))
-        // this.$router.push('/results')
-          // router.push({name:'searchResult'})
         .catch(error => {
           alert("Please try another search");
           console.log(error);
@@ -478,6 +437,7 @@ import router from '../router'
       randomFinder(){
         // console.log(response.data[Math.floor(Math.random()*response.data.length)])
       },
+      //method for getting all the recipes from the backend
       getRecipes(){
           axios({
           method: "get",
@@ -488,6 +448,7 @@ import router from '../router'
           }
           })
           .then(response => this.dbInfo = response.data)
+         
 
           return axios({
           method: "get",
@@ -498,12 +459,12 @@ import router from '../router'
           }
           })
           .then(response => this.title_card = response.data[Math.floor(Math.random()*response.data.length)])
- 
           .catch(error => {
               alert("Error with request...not authenticated");
               console.log(error);
       });
       },
+      // next 3 are for the buttons on the carousel
       nextPage(){
         if (this.page + 1 <= this.numberOfPages) this.page += 1
       },
@@ -516,15 +477,10 @@ import router from '../router'
       deleteToken(){
         this.$store.dispatch('deleteToken')
       },
+      // method for favoriting posts and saving them to your favorites
       favorite(id) {
-        // console.log("this is the recipe id", id)
-        // // this.$store.getters.favorite.push(id)
         // console.log(this.$store.getters.favorite)
-        
-
         this.$store.getters.favorite.push(id),
-        
-        // console.log(this.$store.getters.favorite)
         // console.log(favoriteRecipes.favorites)
         axios({
           method: "patch",
@@ -546,6 +502,7 @@ import router from '../router'
               console.log(error);
       });
       },
+      // obtaining token for user authorization
       obtainToken(context, payload) {
             console.log("hello")
             axios.post(this.state.endpoints.obtainJWT, payload)
@@ -603,18 +560,7 @@ import router from '../router'
     },
     mounted() {
         this.getRecipes()
-    //     window.addEventListener("keydown", function(event){
-    //         if (event.defaultPrevented) {
-    //             return;
-    //         }
-    //         if (event.keyCode=== 13) {
-    //             keywordsearch(event.key)
-    //             return(this.current)
-    //         }
-    // })
-  
-        
-        // inspectToken()
+
     }
   }
 </script>

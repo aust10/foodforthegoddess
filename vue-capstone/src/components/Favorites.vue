@@ -17,6 +17,7 @@
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
+      <p class="pr-5 mt-4 title font-weight-regular">{{this.$store.getters.user.toUpperCase()}}</p>
       <v-btn class="mr-2" rounded  color="transparent" @click="home">Home</v-btn>
       <v-btn rounded color="transparent" @click="logout">Logout</v-btn>
     </v-app-bar>        
@@ -27,7 +28,7 @@
         <v-card
             class="ma-6 mb-10 pa-6 mr-6 info"
             outlined
-            v-for="recipe in this.favoriteInfo" :key = "recipe"
+            v-for="recipe in this.favoriteInfo" :key="recipe"
           >
              <v-icon
             color="red darken-4" large class=" ml-12" @click="deleteFavorite(recipe)">mdi-close-outline</v-icon>
@@ -60,10 +61,10 @@
                   :hover="hover"
                 >
                   <v-expansion-panel-header class="gold">Check out the Recipe!</v-expansion-panel-header>
-                  <v-expansion-panel-content v-model="hover">
+                  <v-expansion-panel-content v-model="hover" >
                     <li class="mt-2" v-for="ingredient in recipe.ingredient_info" :key="ingredient">
                         <input class="strikethrough" type="checkbox" :id="ingredient.ingredients" :value="ingredient.ingredients">
-                        <label class="ml-6" :for="ingredient.ingredients">{{ingredient.ingredients}}</label>
+                        <label class="ml-6" :for="ingredient.ingredients" :key="ingredient.ingredient">{{ingredient.ingredients}}</label>
                     </li>
                     <p class="mt-6">{{recipe.body}}</p>
                   </v-expansion-panel-content>
@@ -92,6 +93,7 @@ import router from '../router'
         favoriteInfo: [],
         selectedInfo: [],
         delete: [],
+        hover:'',
       }
     },
     methods:{

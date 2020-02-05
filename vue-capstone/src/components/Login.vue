@@ -166,9 +166,9 @@ export default {
 				// fullName: `${this.firstName} ${this.lastName}`,
 				email: this.email,
       }
-      console.log("hi from register")
+      // console.log("hi from register")
       this.$store.dispatch('userSetup', payload)
-      router.push({name: 'userDashBoard'})
+      router.push({name:'userDashBoard'})
     },
     //test for making the api to ensure tokens were being recieved and stored
     testAPI() {

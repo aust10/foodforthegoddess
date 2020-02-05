@@ -19,27 +19,17 @@
             hide-details
             label="Search"
         ></v-text-field>
-        <!-- <v-spacer></v-spacer> -->
-        <!-- <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch">Search</v-btn> -->
         <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
-      <!-- <v-btn rounded color="transparent" @click="getRecipes">Favorites</v-btn> -->
+        <v-spacer></v-spacer>
+ 
       <v-btn rounded color="transparent" @click="deleteToken">Logout</v-btn>
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>  
     <v-container fluid>
-        <!-- <ul>
-          <li v-for="items in selectedInfo" :key= "items">{{ items }}</li>
-        </ul> -->
 
         <app-input @searched="console.log($event)"></app-input>
-        
-        <!-- <ul v-if="selectedInfo">
-          <li>This is : {{selectedInfo}}</li>
-        </ul> -->
-
 
     </v-container>
   </v-app>
@@ -62,11 +52,6 @@ export default {
     findinfo(findinfo){
       this.selectedInfo = console.log("this is find info", findinfo)
     },
-    //   created(){
-    //   bus.$on('infochanged', (data) => {
-    //   this.selectedInfo = data;
-    //   console.log(this.selectedInfo)
-    // }),
     deleteToken(){
         this.$store.dispatch("deleteToken");
     }

@@ -32,12 +32,6 @@ class IngredientsSerializer(serializers.ModelSerializer):
             'ingredients', 'id'
         )
 
-# class FavoriteSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = models.Favorite
-#         fields =(
-#             'recipe', 'id', 'user'
-#         )
 
 class RecipeSerializer(serializers.ModelSerializer):
     ingredient_info = IngredientsSerializer(many=True, read_only=True, source='ingredients')
