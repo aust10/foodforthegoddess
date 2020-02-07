@@ -128,7 +128,55 @@ export default new Vuex.Store({
     actions: {
         // Delete tokens and log user out this is for the logout button
 
+        homeToken(context, payload) {
+            console.log("hello")
+            axios.post(this.state.endpoints.obtainJWT, payload)
+                .then(response => {
+                    
+                    // update token with the response data that comes back from the post
+                    this.commit('updateToken', response.data);
+                
+                    // Set state information for logged in user
+                    const token = response.data.access
+                    if (token) {
+                        // use jwt_decode library to extract user_id from JWT 
+                        // const decoded = jwt_decode(token);
+                        // const user_id = decoded.user_id
 
+                        // send user_id next axios call, to pull User info from API
+                        return axios({
+                            method: 'get',
+                            url: `http://localhost:8000/auth/users/me/`,
+                            headers: {
+                                authorization: `Bearer ${response.data.access}`
+                            }
+                        })
+                    } else {
+                        alert("trying to decode user from access token but no token found!")
+                    }
+                })
+                // Set user information 
+                .then(response => { console.log("this is the response.data ", response.data)
+                    this.commit('setAuthUser', {
+                        // in Vuex store, add user information retrieved from API
+                        // authUser: {
+                        //     user_id: response.data.id,
+                        //     username: response.data.username,
+                        //     first_name: response.data.first_name,
+                        //     last_name: response.data.last_name,
+                        //     favorites: [],
+                        // },
+                        isAuthenticated: true,
+                    })
+                    // redirect user to Dashboard
+                    // router.push({name:'userDashBoard'})
+                })
+                .catch((error) => {
+                    console.log(error);
+                    alert("Invalid username/password combination, please try again.")
+                });
+         
+        },
         deleteToken() {
             this.commit("removeToken")
             this.commit("unsetAuthUser")
@@ -359,7 +407,8 @@ export default new Vuex.Store({
                 // this.commit('updateUserInfoOnly', response.data)
             })
             .catch(error => console.log(error))
-        }
+        },
+        
    
 			
 

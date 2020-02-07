@@ -6,6 +6,7 @@ import Login from '../components/Login.vue'
 import UserDashBoard from '../components/UserDashBoard'
 import SearchResult from '../components/SearchResult'
 import Favorites from '../components/Favorites'
+import About from '../components/About'
 import index from '../store'
 // import { authComputed } from '../store/helpers'
 
@@ -65,7 +66,12 @@ const router = new VueRouter({
           next('/Login')
         }
       }
-    }
+    },
+    {
+      path: '/About',
+      name: 'about',
+      component: About
+    },
   ]
 })
 

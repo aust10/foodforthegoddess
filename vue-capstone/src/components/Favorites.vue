@@ -75,7 +75,7 @@
         </v-card>  
       </v-container>
     <v-footer
-      color="secondary"
+      color="white"
       app
       postion: absolute
     >
