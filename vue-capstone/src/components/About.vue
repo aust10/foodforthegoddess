@@ -1,29 +1,30 @@
 <template>
   <div  class="about">
-    <v-container class="success" fluid>
+    <v-container class="success pb-0" fluid>
       <v-app-bar
       app
-      color="secondary"
+      color="white"
       dark
+      hide-on-scroll
     >
-      <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
+      <v-toolbar-title class="display-1 font-weight-black blue-grey--text">food4thegoddess</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <h1 class="headline font-italic">A Thinking Man’s Guide to Cooking for Women</h1>
+      <h1 class="headline font-weight-medium font-italic blue-grey--text">A Thinking Man’s Guide to Cooking for Women</h1>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         
      
         <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-        <v-btn class="mr-1" rounded color="transparent" to="/">home</v-btn>
-        <v-btn class="mr-1" rounded color="transparent">About</v-btn>
-        <v-btn to="/login" rounded color="transparent" @click="getToken">Login</v-btn>
+        <v-btn class="mr-1 blue-grey--text" rounded color="transparent" to="/">home</v-btn>
+        <!-- <v-btn class="mr-1 blue-grey--text" rounded color="transparent">About</v-btn> -->
+        <v-btn class="blue-grey--text" to="/login" rounded color="amber" @click="getToken">Login</v-btn>
     </v-app-bar>
         <v-container   color="#FADCCA" fluid>
-    <v-row class="pt-6 pb-6">
-      <v-col cols="12">
+    <v-row class=" pb-6">
+      <v-col class="pt-0" cols="12">
         <v-row
           class="pb-0 justify-space-between"
          
@@ -112,12 +113,13 @@
 
     </v-container>
     <v-footer
-      color="secondary"
+    class="blue-grey--text"
+      color="white"
       app
       position: absolute
     
     >
-      <span class="white--text">food4thegoddess &copy; 2020</span>
+      <span class="blue-grey--text">food4thegoddess</span><v-spacer></v-spacer> &copy; 2020
     </v-footer>
   </div>
 </template>

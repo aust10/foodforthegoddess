@@ -32,6 +32,13 @@ class IngredientsSerializer(serializers.ModelSerializer):
             'ingredients', 'id'
         )
 
+class CommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Comments
+        fields =(
+            'comments',
+        )
+
 
 class RecipeSerializer(serializers.ModelSerializer):
     ingredient_info = IngredientsSerializer(many=True, read_only=True, source='ingredients')
@@ -42,7 +49,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     technique_info = TechniqueSerializer(many=True,read_only=True, source='technique')
 
-    
+    comments_info = CommentsSerializer(many=True, read_only=True, source='comments')
 
     class Meta:
         model = models.Recipe
@@ -61,11 +68,14 @@ class RecipeSerializer(serializers.ModelSerializer):
             'picture',
             'body',
             'favorites',
+            'comments',
+            'comments_info',
             # 'favorites_info',
         )
         # depth = 1
 class UserSerializer(serializers.ModelSerializer):
     favorites_info = RecipeSerializer(many=True,read_only=True, source='favorites')
+    comments_info = RecipeSerializer(many=True,read_only=True, source='comments')
     class Meta:
         model = models.User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'favorites','favorites_info')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'favorites','favorites_info','comments','comments_info')

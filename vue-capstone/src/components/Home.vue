@@ -16,7 +16,7 @@
         
      
         <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
         <v-btn class="mr-2 blue-grey--text" rounded color="transparent" to="about">About</v-btn>
         <v-btn class="blue-grey--text" to="/login" rounded color="amber" @click="getToken">Login</v-btn>
     </v-app-bar>
@@ -28,7 +28,7 @@
         <v-col class="pt-0 pb-0" cols="12" sm="6">
         <v-text-field
                 rounded
-                v-model="search"
+                v-model='search'
                 clearable
                 flat
                 solo-inverted
@@ -173,14 +173,18 @@
           
           <h1 class="ml-3 blue-grey--text" v-show="this.selectedInfo.length">You searched "{{this.search}}"</h1>
             <!-- class="ma-3 mb-1 pa-4 mb-6 info" -->
+      <v-container
+      class="justify-center mr-12">
         <v-card
-            class="ma-3 pa-4 info mb-12 info"
-            max-width="80%"
+            class="mb-12 info"
+            
+            max-width="90%"
             outlined
-            v-for="name in selectedInfo" :key="name.id"
+            v-for="name in selectedInfo" 
+            :key="name.id"
           >
           <v-icon
-            color="red darken-4" large class=" ml-12" @click="deleteIt()">mdi-close-outline</v-icon>
+            color="red darken-4" large class=" ml-12" @click="deleteSeclected(name)">mdi-close-outline</v-icon>
           <v-card-title class="pt-0 black--text justify-center" >{{ name.recipe_name }}
   
             <v-btn 
@@ -226,7 +230,7 @@
                     
                         <li class="mt-2" v-for="ingredient in name.ingredient_info" :key="ingredient">
                           <input class="strikethrough" type="checkbox" :id="ingredient.ingredients" :value="ingredient.ingredients" :key="strikethrough">
-                          <label class="ml-6" :for="ingredient.ingredients">{{ingredient.ingredients}}</label>
+                          <label class="ml-6" :for="ingredient.ingredients" :key="ingred">{{ingredient.ingredients}}</label>
                         </li>
                     <p class="mt-6">{{name.body}}</p>
                   </v-expansion-panel-content>
@@ -235,11 +239,11 @@
             </v-row>
           </v-card-text>
           </v-card>        
-
+      </v-container>
         <!-- click on slide show display -->
        
         <v-container
-            max-width="200"
+            max-width="20%"
             v-show="!this.selectedInfo.length"
         >
           <h1 v-show="Object.keys(caroselFinder).length"></h1>
@@ -338,6 +342,7 @@ export default {
         hover: '',
         strikethrough:'',
         dbInfo: [],
+        xOut: [],
 
         items: [
          {
@@ -364,6 +369,13 @@ export default {
 },
   methods: {
     // call state obtain token here
+      deleteSeclected(name){
+        console.log(this.selectedInfo)
+          this.xOut = this.selectedInfo.indexOf(name)
+        console.log(this.xOut)
+          
+          this.selectedInfo.splice(this.xOut,1)
+      },
       deleteIt(){
         this.caroselFinder= []
       },

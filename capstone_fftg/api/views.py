@@ -7,12 +7,12 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import filters
 
-from recipe_app.models import Category, Technique, KeyWord, Recipe, Ingredients
+from recipe_app.models import Category, Technique, KeyWord, Recipe, Ingredients, Comments
 
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import CategorySerializer, TechniqueSerializer, KeyWordSerializer, RecipeSerializer, IngredientsSerializer, UserSerializer
+from .serializers import CategorySerializer, TechniqueSerializer, KeyWordSerializer, RecipeSerializer, IngredientsSerializer, UserSerializer, CommentsSerializer
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -20,6 +20,11 @@ class HelloView(APIView):
     def get(self,request):
         content = {'message': 'Hello,World!'}
         return Response(content)
+
+class CommentsViewSet(viewsets.ModelViewSet):
+    queryset = Comments.objects.all()
+    serializer_class = CommentsSerializer
+    # search_fields = ['comments']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()

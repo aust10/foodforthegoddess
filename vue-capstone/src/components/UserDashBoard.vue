@@ -1,99 +1,76 @@
 <template>
-  <v-app class="pb-0" id="inspire">
+  <v-app class="pb-0 success">
 
     <v-app-bar
       app
-      color="secondary"
+      color="white"
       dark
-      
-    
     >
-    
-      <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
-
+      <v-toolbar-title class="display-1 font-weight-black blue-grey--text">food4thegoddess</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <h1 class="headline font-weight-medium font-italic blue-grey--text">A Thinking Man’s Guide to Cooking for Women</h1>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
 
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+      <p class="pr-5 mt-4 title font-weight-regular blue-grey--text">{{this.$store.getters.user.toUpperCase()}}</p>
+      <v-btn class="mr-2 blue-grey--text" rounded color="amber" key="favorites" @click="getFavorites()">Favorites</v-btn>
+      <v-btn class="blue-grey--text" rounded color="transparent" @click="deleteToken">Logout</v-btn>
+    </v-app-bar>
+    <v-container
+    class="pt-0 pb-0"
+    >
+      <v-row justify="center">
+        <v-col class="pt-3 pb-0" cols="12" sm="6">
         <v-text-field
             rounded
-            v-model="search"
+            v-model='search'
             clearable
             flat
             solo-inverted
             hide-details
-            label="Search"
+            label="Search The Cookbook"
             @keyup.enter="keywordsearch"
-        ></v-text-field>
-
-        <v-btn rounded color ="transparent" class="ml-3" @click="keywordsearch">
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
-      <p class="pr-5 mt-4 title font-weight-regular">{{this.$store.getters.user.toUpperCase()}}</p>
-      <v-btn class="mr-2" rounded color="transparent" key="favorites" @click="getFavorites()">Favorites</v-btn>
-      <v-btn rounded color="transparent" @click="deleteToken">Logout</v-btn>
-    </v-app-bar>  
-
-    <!-- card for the randomly generated top left card -->
-    <v-container class="success pb-0" fluid>
-    <v-row>
-      <v-col cols="12">
-        <v-row
-          justify-space-between
-          class="pb-0 justify-space-between"
         >
+        </v-text-field>
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- card for the randomly generated top left card -->
+    <v-container class="pt-0"  color="#FADCCA" fluid>
+      <v-row>
+        <v-col cols="12">
+          <v-row
+            class="pb-0 justify-space-between"
+          >
           <v-card
-              class="align-right ma-6 pa-6 mb-1 info"
-              width="60%"
-          >
-              <v-img
-              class="white--text align-end"
-              height="300px"
-              :src='this.title_card.picture'
-              >
-              </v-img>
-              <v-card-title class="text--primary font-italic ml-10 mr-10">{{this.title_card.recipe_name}}
-              <v-spacer></v-spacer>
-              <v-btn
-                color="orange black black-text-outline"
-                text
-                @click="showSelected(title_card.id)"
-              >
-                Explore
-              </v-btn>
-              </v-card-title>
-        
-          </v-card>
-          <v-card
-            width="30%"
-            class="ma-6 mb-1 pa-6 mr-6 info"
-            outlined
-          >
-          <v-img
-            class="white--text align-end ml-3 info"
-            height="80px"
-            width="60"
-            :src="require('../images/FFTG_logo.png')"
-          >
-          </v-img>
-          <v-card-title class="black--text ">Food for thought</v-card-title>
-          <v-card-text class="text--primary">
-            <div>
-            “Food for the Goddess” provides men – and women, for that matter -- one avenue for getting back in touch with the feminine principles that move in mysterious and powerful ways in our world.
-            <br><br>
-            By showing respect for women through the loving preparation and presentation of food, a man can put himself in proper alignment with the Cosmic Order.
-            <br><br>
-            And he can have a good time and be useful in the bargain.
-            </div>
-          </v-card-text>
-          </v-card>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+              width="100%"
+              class="ma- mb-1 pa-3 mr-3 info "
+              outlined
+            >
+            
+            <v-img
+              height="400px"
+              width="100%"
+              :src="require('../images/granola.jpg')"
+            >
+            <v-card 
+            class="mt-12 ma-12"
+            width="32%">
+            <v-card-text background-color="white" class="display-2 font-weight-medium white--black">
+              COOKING & LOVE</v-card-text>
+            </v-card>
+            </v-img>
+            
+            </v-card>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <v-content
       class="pa-4 pt-0 success"
       >
@@ -314,19 +291,43 @@
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
+              <v-btn rounded color="amber" 
+              @click="registerComment = !registerComment"
+              v-if="!registerComment"
+              class="blue-grey--text"
+
+             >Comment</v-btn><br>
+               <v-text-field
+                v-if="registerComment"
+                v-model='comment'
+                clearable
+                flat
+                solo-inverted
+                hide-details
+                label="Add Comment"
+                @keyup.enter="addComment(caroselFinder.id)"
+            >
+          </v-text-field>
             </v-row>
+          <v-container
+          v-for="comment in commentinfo" :key="comment">
+          {{comment.comments_info.comments}}
+          </v-container>
+            <!-- <p>{{this.comment}}</p> -->
           </v-card-text>
           </v-card>        
         </v-container>
         
     </v-content>
     <v-footer
-      color="secondary"
+      color="white"
       app
       postion: absolute
       
     >
-      <span class="white--text">food4thegoddess &copy; 2020</span>
+      <span class="blue-grey--text">food4thegoddess</span><v-spacer></v-spacer>
+      <a class="mr-2" href="/About">About</a>
+      <span class="blue-grey--text"> &copy; 2020</span>
     </v-footer>
   </v-app>
 </template>
@@ -361,10 +362,13 @@ import router from '../router'
         favoriteInfo: [],
         caroselFinder: [],
         submited: false,
+        registerComment: false,
         title_card: [],
         hover: '',
         strikethrough:'',
         dbInfo: [],
+        comment:'',
+        commentinfo:[],
 
         items: [
          {
@@ -390,6 +394,51 @@ import router from '../router'
       
     },
     methods: {
+      addComment() {
+       
+        // console.log("this is id", id)
+        console.log(this.$store.getters.comments)
+        this.$store.getters.comments.push(this.comment),
+        console.log(this.$store.getters.comments)
+        axios({
+          method: "patch",
+          url: 'http://localhost:8000/api/v1/users/'+ this.$store.getters.userId +'/',
+          headers:{
+          authorization:
+          `Bearer ${this.$store.getters.accessToken}`
+            },
+          data:{
+            username: this.$store.getters.user,
+            comments_info: this.$store.getters.comments
+          }
+          })
+          .then((response)=> { this.commentinfo = response.config.data
+          
+          })
+          .catch(error => {
+              alert("Error with request...not authenticated");
+              console.log(error);
+      });
+      },
+      getComments(){
+            axios({
+                method: "get",
+                url: `http://localhost:8000/api/v1/users/`+ this.$store.getters.userId,
+                headers:{
+                  authorization:
+                  `Bearer ${this.$store.getters.accessToken}`
+                }
+              })
+              .then(response => {
+                this.commentinfo = response.data.comments_info
+              console.log(this.commentsinfo)
+              },
+                )
+              .catch(error => {
+                alert("Please try another search");
+                console.log(error);
+              })
+      },
       //method for selecting the carosel items
       showSelected(id){
         // console.log(this.dbInfo)
@@ -559,7 +608,8 @@ import router from '../router'
         },
     },
     mounted() {
-        this.getRecipes()
+        this.getRecipes(),
+        this.getComments()
 
     }
   }

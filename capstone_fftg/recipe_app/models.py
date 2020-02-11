@@ -42,6 +42,15 @@ class Ingredients(models.Model):
     def __str__(self):
         return self.ingredients
 
+class Comments(models.Model):
+    comments = models.CharField(max_length=500)
+    
+    class Meta: 
+        verbose_name = "Comments"
+
+    def __str__(self):
+        return self.comments
+
 
 
     
@@ -55,6 +64,7 @@ class Recipe(models.Model):
     body = models.TextField()
     picture = models.ImageField(upload_to='images/')
     favorites = models.ManyToManyField(User, related_name='favorites', blank=True)
+    comments = models.ManyToManyField(User,related_name='comments', blank=True)
     
 
     class Meta:

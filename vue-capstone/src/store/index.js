@@ -18,6 +18,7 @@ export default new Vuex.Store({
             lastName: '',
             email: '',
             favorites: '',
+            comments:'',
         },
         // For managing User logins
         authUser: null,
@@ -72,6 +73,8 @@ export default new Vuex.Store({
         user(state){ return state.authUser.username },
         //this gets the favorites
         favorite(state){ return state.authUser.favorites },
+        //this gets the comments
+        comments(state){ return state.authUser.comments },
         //this returns if they are authenticated
         isAuthenticated(state){ return state.isAuthenticated },
         //this is the access token 
@@ -221,6 +224,7 @@ export default new Vuex.Store({
                             first_name: response.data.first_name,
                             last_name: response.data.last_name,
                             favorites: [],
+                            comments:[],
                         },
                         isAuthenticated: true,
                     })

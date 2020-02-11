@@ -4,22 +4,22 @@
 
     <v-app-bar
       app
-      color="secondary"
+      color="white"
       dark
       hide-on-scroll
     >
     
-      <v-toolbar-title class="headline">food4thegoddess</v-toolbar-title>
+      <v-toolbar-title class="display-1 font-weight-black blue-grey--text">food4thegoddess</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+       <v-toolbar-title class="display-1 blue-grey--text font-italic">Favorites</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
-       <v-toolbar-title class="display-1 font-italic">Favorites</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
-      <p class="pr-5 mt-4 title font-weight-regular">{{this.$store.getters.user.toUpperCase()}}</p>
-      <v-btn class="mr-2" rounded  color="transparent" @click="home">Home</v-btn>
-      <v-btn rounded color="transparent" @click="logout">Logout</v-btn>
+      <p class="pr-5 mt-4 title blue-grey--text font-weight-regular">{{this.$store.getters.user.toUpperCase()}}</p>
+      <v-btn class="mr-2 blue-grey--text" rounded  color="amber" @click="home">Home</v-btn>
+      <v-btn rounded color="transparent" class="blue-grey--text" @click="logout">Logout</v-btn>
     </v-app-bar>        
     <v-container
             class="success"
@@ -79,7 +79,7 @@
       app
       postion: absolute
     >
-      <span class="white--text">food4thegoddess &copy; 2020</span>
+      <span class="blue-grey--text">food4thegoddess</span><v-spacer></v-spacer><span class="blue-grey--text"> &copy; 2020</span>
     </v-footer>
   </v-app>
 </template>
