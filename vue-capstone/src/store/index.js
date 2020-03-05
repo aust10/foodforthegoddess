@@ -149,7 +149,7 @@ export default new Vuex.Store({
                         // send user_id next axios call, to pull User info from API
                         return axios({
                             method: 'get',
-                            url: `http://http://localhost:8000//auth/users/me/`,
+                            url: `http://http://157.245.168.148//auth/users/me/`,
                             headers: {
                                 authorization: `Bearer ${response.data.access}`
                             }

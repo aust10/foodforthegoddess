@@ -392,7 +392,7 @@ export default {
     getRecipes(){
           axios({
           method: "get",
-          url: 'http://localhost:8000/api/v1/recipes/',
+          url: 'http://157.245.168.148/api/v1/recipes/',
           headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
