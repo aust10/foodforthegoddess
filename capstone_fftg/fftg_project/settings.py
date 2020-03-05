@@ -153,6 +153,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 # CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST =(
     'http://localhost:8080',
+    'http://159.65.74.24',
 )
     # 'http://localhost:8084',
 
