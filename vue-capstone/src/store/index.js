@@ -32,10 +32,10 @@ export default new Vuex.Store({
         },
         // Endpoints to access the backend 
         endpoints: {
-            obtainJWT: 'http://localhost:8000/auth/jwt/create/',
-            refreshJWT: 'http://localhost:8000/auth/jwt/refresh/',
-            baseURL: 'http://localhost:8000',
-            baseAPI: 'http://localhost:8000/api/v1',
+            obtainJWT: 'http://http://159.65.74.24/0/auth/jwt/create/',
+            refreshJWT: 'http://http://159.65.74.24//auth/jwt/refresh/',
+            baseURL: 'http://http://159.65.74.24/',
+            baseAPI: 'http://http://159.65.74.24//api/v1',
         },
         // Rules for the form 
         formRules: {
@@ -149,7 +149,7 @@ export default new Vuex.Store({
                         // send user_id next axios call, to pull User info from API
                         return axios({
                             method: 'get',
-                            url: `http://localhost:8000/auth/users/me/`,
+                            url: `http://http://159.65.74.24//auth/users/me/`,
                             headers: {
                                 authorization: `Bearer ${response.data.access}`
                             }
@@ -205,7 +205,7 @@ export default new Vuex.Store({
                         // send user_id next axios call, to pull User info from API
                         return axios({
                             method: 'get',
-                            url: `http://localhost:8000/auth/users/me/`,
+                            url: `http://http://159.65.74.24//auth/users/me/`,
                             headers: {
                                 authorization: `Bearer ${response.data.access}`
                             }
@@ -363,7 +363,7 @@ export default new Vuex.Store({
         test() {
             axios({
                 method: 'get',
-                url: 'http://localhost:8000/api/v1/recipes/',
+                url: 'http://http://159.65.74.24//api/v1/recipes/',
                 headers: {
                     authorization: 'Bearer' `${this.state.jwt_access}`
                 }
