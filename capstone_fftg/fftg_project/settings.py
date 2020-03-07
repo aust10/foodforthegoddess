@@ -150,7 +150,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 REST_FRAMEWORK ={
     'DEFAULT_PERMISSION_CLASSES': 
@@ -160,11 +160,11 @@ REST_FRAMEWORK ={
         'rest_framework.authentication.SessionAuthentication'],
     'DEFAULT_FILTER_BACKENDS':                       ['django_filters.rest_framework.DjangoFilterBackend'],
 }
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST =(
-    'http://localhost:8080',
     'http://159.65.74.24',
+    'http://localhost:8080',
 )
     # 'http://localhost:8084',
 
