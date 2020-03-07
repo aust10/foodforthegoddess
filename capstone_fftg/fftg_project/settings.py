@@ -160,7 +160,7 @@ REST_FRAMEWORK ={
         'rest_framework.authentication.SessionAuthentication'],
     'DEFAULT_FILTER_BACKENDS':                       ['django_filters.rest_framework.DjangoFilterBackend'],
 }
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 # CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST =(
     'http://159.65.74.24',
