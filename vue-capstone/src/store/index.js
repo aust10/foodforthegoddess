@@ -32,10 +32,10 @@ export default new Vuex.Store({
         },
         // Endpoints to access the backend 
         endpoints: {
-            obtainJWT: 'http://http://157.245.168.148/auth/jwt/create/',
-            refreshJWT: 'http://http://157.245.168.148//auth/jwt/refresh/',
-            baseURL: 'http://http://157.245.168.148/',
-            baseAPI: 'http://http://157.245.168.148//api/v1',
+            obtainJWT: 'http://aus10c.pythonanywhere.com//auth/jwt/create/',
+            refreshJWT: 'http://157.245.168.148//auth/jwt/refresh/',
+            baseURL: 'http://157.245.168.148/',
+            baseAPI: 'http://157.245.168.148//api/v1',
         },
         // Rules for the form 
         formRules: {
@@ -205,7 +205,7 @@ export default new Vuex.Store({
                         // send user_id next axios call, to pull User info from API
                         return axios({
                             method: 'get',
-                            url: `http://http://157.245.168.148//auth/users/me/`,
+                            url: `http://aus10c.pythonanywhere.com/auth/users/me/`,
                             headers: {
                                 authorization: `Bearer ${response.data.access}`
                             }
