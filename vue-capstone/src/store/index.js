@@ -32,7 +32,7 @@ export default new Vuex.Store({
         },
         // Endpoints to access the backend 
         endpoints: {
-            obtainJWT: 'http://aus10c.pythonanywhere.com//auth/jwt/create/',
+            obtainJWT: 'http://aus10c.pythonanywhere.com/auth/jwt/create/',
             refreshJWT: 'http://157.245.168.148//auth/jwt/refresh/',
             baseURL: 'http://157.245.168.148/',
             baseAPI: 'http://157.245.168.148//api/v1',

@@ -392,7 +392,7 @@ export default {
     getRecipes(){
           axios({
           method: "get",
-          url: 'http://157.245.168.148/api/v1/recipes/',
+          url: 'http://aus10c.pythonanywhere.com/api/v1/recipes/',
           headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
@@ -415,7 +415,7 @@ export default {
         // console.log("this is carosel finder"+ `${id}`)
           axios({
           method: "get",
-          url: `http://localhost:8000/api/v1/recipes/${id}/`,
+          url: `http://aus10c.pythonanywhere.com/api/v1/recipes/${id}/`,
           headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
@@ -436,7 +436,7 @@ export default {
         console.log(this.$store.state.authUser)
         axios({
           method: "get",
-          url: `http://localhost:8000/api/v1/recipes/?search=${this.search}`,
+          url: `http://aus10c.pythonanywhere.com/api/v1/recipes/?search=${this.search}`,
           headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
