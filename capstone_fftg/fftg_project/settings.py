@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from datetime import timedelta
+# from django.utils import six
 
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
@@ -31,7 +32,7 @@ SECRET_KEY = '^cg#zh(_pqt#8evg0lsbcb-vhuc*z+5q%r2$j7rh4_t)tvw-x1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['157.245.168.148','localhost']
+ALLOWED_HOSTS = ['157.245.168.148','localhost','159.65.74.24']
 
 # Application definition
 
@@ -102,8 +103,8 @@ DATABASES = {
 #     DATABASES = {
 #         'default': {
 #             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'food4thegoddess',
-#             'USER': 'food4thegoddess_admin',
+#             'NAME': 'foodforthegoddess',
+#             'USER': 'food4thegoddess',
 #             'PASSWORD': 'IZZYdiesel10!!!!',
 #             'HOST': 'localhost',
 #             'PORT': '',
@@ -158,7 +159,7 @@ REST_FRAMEWORK ={
     'DEFAULT_AUTHENTICATION_CLASSES':
         ['rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication'],
-    'DEFAULT_FILTER_BACKENDS':                       ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_FILTER_BACKENDS':['django_filters.rest_framework.DjangoFilterBackend'],
 }
 CORS_ORIGIN_ALLOW_ALL = False
 # CORS_ALLOW_CREDENTIALS = True
