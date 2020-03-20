@@ -174,7 +174,7 @@ export default {
     testAPI() {
       axios({
         method: "get",
-        url: 'http://localhost:8000/api/v1/recipes/',
+        url: 'http://aus10c.pythonanywhere.com/api/v1/recipes/',
         headers: {
           authorization: `Bearer ${this.access}`
         }

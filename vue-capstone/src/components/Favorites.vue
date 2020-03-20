@@ -110,7 +110,7 @@ import router from '../router'
         
           axios({
             method: "patch",
-            url: 'http://localhost:8000/api/v1/users/'+ this.$store.getters.userId +'/',
+            url: 'http://aus10c.pythonanywhere.com/api/v1/users/'+ this.$store.getters.userId +'/',
             headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
@@ -143,7 +143,7 @@ import router from '../router'
         getFavorites(){
             axios({
                 method: "get",
-                url: `http://localhost:8000/api/v1/users/`+ this.$store.getters.userId,
+                url: `http://aus10c.pythonanywhere.com/api/v1/users/`+ this.$store.getters.userId,
                 headers:{
                   authorization:
                   `Bearer ${this.$store.getters.accessToken}`

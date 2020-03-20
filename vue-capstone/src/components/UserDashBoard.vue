@@ -402,7 +402,7 @@ import router from '../router'
         console.log(this.$store.getters.comments)
         axios({
           method: "patch",
-          url: 'http://localhost:8000/api/v1/users/'+ this.$store.getters.userId +'/',
+          url: 'http://aus10c.pythonanywhere.com/api/v1/users/'+ this.$store.getters.userId +'/',
           headers:{
           authorization:
           `Bearer ${this.$store.getters.accessToken}`
@@ -423,7 +423,7 @@ import router from '../router'
       getComments(){
             axios({
                 method: "get",
-                url: `http://localhost:8000/api/v1/users/`+ this.$store.getters.userId,
+                url: `http://aus10c.pythonanywhere.com/api/v1/users/`+ this.$store.getters.userId,
                 headers:{
                   authorization:
                   `Bearer ${this.$store.getters.accessToken}`
@@ -446,7 +446,7 @@ import router from '../router'
         // console.log("this is carosel finder"+ `${id}`)
           axios({
           method: "get",
-          url: `http://localhost:8000/api/v1/recipes/${id}/`,
+          url: `http://aus10c.pythonanywhere.com/api/v1/recipes/${id}/`,
           headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
@@ -468,7 +468,7 @@ import router from '../router'
         console.log(this.$store.state.authUser)
         axios({
           method: "get",
-          url: `http://localhost:8000/api/v1/recipes/?search=${this.search}`,
+          url: `http://aus10c.pythonanywhere.com/api/v1/recipes/?search=${this.search}`,
           headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
@@ -490,7 +490,7 @@ import router from '../router'
       getRecipes(){
           axios({
           method: "get",
-          url: 'http://localhost:8000/api/v1/recipes/',
+          url: 'http://aus10c.pythonanywhere.com/api/v1/recipes/',
           headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
@@ -501,7 +501,7 @@ import router from '../router'
 
           return axios({
           method: "get",
-          url: 'http://localhost:8000/api/v1/recipes/',
+          url: 'http://aus10c.pythonanywhere.com/api/v1/recipes/',
           headers:{
             authorization:
             `Bearer ${this.$store.getters.accessToken}`
@@ -533,7 +533,7 @@ import router from '../router'
         // console.log(favoriteRecipes.favorites)
         axios({
           method: "patch",
-          url: 'http://localhost:8000/api/v1/users/'+ this.$store.getters.userId +'/',
+          url: 'http://aus10c.pythonanywhere.com/api/v1/users/'+ this.$store.getters.userId +'/',
           headers:{
           authorization:
           `Bearer ${this.$store.getters.accessToken}`
@@ -570,7 +570,7 @@ import router from '../router'
                         // send user_id next axios call, to pull User info from API
                         return axios({
                             method: 'get',
-                            url: `http://localhost:8000/auth/users/me/`,
+                            url: `http://aus10c.pythonanywhere.com/auth/users/me/`,
                             headers: {
                                 authorization: `Bearer ${response.data.access}`
                             }
@@ -589,7 +589,7 @@ import router from '../router'
         getFavorites(){
             axios({
                 method: "get",
-                url: `http://localhost:8000/api/v1/users/`+ this.$store.getters.userId,
+                url: `http://aus10c.pythonanywhere.com/api/v1/users/`+ this.$store.getters.userId,
                 headers:{
                   authorization:
                   `Bearer ${this.$store.getters.accessToken}`

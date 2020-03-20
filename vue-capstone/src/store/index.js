@@ -33,9 +33,9 @@ export default new Vuex.Store({
         // Endpoints to access the backend 
         endpoints: {
             obtainJWT: 'http://aus10c.pythonanywhere.com/auth/jwt/create/',
-            refreshJWT: 'http://157.245.168.148//auth/jwt/refresh/',
-            baseURL: 'http://157.245.168.148/',
-            baseAPI: 'http://157.245.168.148//api/v1',
+            refreshJWT: 'http://aus10c.pythonanywhere.com/auth/jwt/refresh/',
+            baseURL: 'http://aus10c.pythonanywhere.com',
+            baseAPI: 'http://aus10c.pythonanywhere.com/api/v1',
         },
         // Rules for the form 
         formRules: {
@@ -149,7 +149,7 @@ export default new Vuex.Store({
                         // send user_id next axios call, to pull User info from API
                         return axios({
                             method: 'get',
-                            url: `http://http://157.245.168.148//auth/users/me/`,
+                            url: `http://aus10c.pythonanywhere.com/auth/users/me/`,
                             headers: {
                                 authorization: `Bearer ${response.data.access}`
                             }
@@ -197,6 +197,7 @@ export default new Vuex.Store({
                 
                     // Set state information for logged in user
                     const token = response.data.access
+                    console.log("hello from below the const token")
                     if (token) {
                         // use jwt_decode library to extract user_id from JWT 
                         // const decoded = jwt_decode(token);
@@ -363,7 +364,7 @@ export default new Vuex.Store({
         test() {
             axios({
                 method: 'get',
-                url: 'http://http://157.245.168.148//api/v1/recipes/',
+                url: 'http://aus10c.pythonanywhere.com/api/v1/recipes/',
                 headers: {
                     authorization: 'Bearer' `${this.state.jwt_access}`
                 }
