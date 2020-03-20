@@ -6,19 +6,20 @@
       color="white"
       dark
     >
-      <v-toolbar-title class="display-1 font-weight-black blue-grey--text">food4thegoddess</v-toolbar-title>
+      <v-toolbar-title id="topTitle" class="display-1 font-weight-black blue-grey--text">food4thegoddess</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <h1 class="headline font-weight-medium font-italic blue-grey--text">A Thinking Man’s Guide to Cooking for Women</h1>
+      <v-h1 id="toph1" class="headline font-weight-medium font-italic blue-grey--text">A Thinking Man’s Guide to Cooking for Women</v-h1>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         
      
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
-        <v-btn class="mr-2 blue-grey--text" rounded color="transparent" to="about">About</v-btn>
-        <v-btn class="blue-grey--text" to="/login" rounded color="amber" @click="getToken">Login</v-btn>
+        <v-btn id="topBtn" class="mr-2 blue-grey--text" rounded color="transparent" to="about">About</v-btn>
+        <v-btn id="topBtn" class="blue-grey--text" to="/login" rounded color="amber" @click="getToken">Login</v-btn>
+  
     </v-app-bar>
     <v-container
     class="pt-0 pb-0"
@@ -60,7 +61,7 @@
             <v-card 
             class="mt-12 ma-12"
             width="32%">
-            <v-card-text background-color="white" class="display-2 font-weight-medium white--black">
+            <v-card-text id="pictureText" background-color="white" class="display-2 font-weight-medium white--black">
               COOKING & LOVE</v-card-text>
             </v-card>
             </v-img>
@@ -461,5 +462,20 @@ export default {
 }
 </script>
 <style scoped>
-
+  @media (max-width: 978px){
+    #toph1 {
+      display: none;
+    }
+    #pictureText {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 425px){
+    #topTitle{
+      display:none
+    }
+    #pictureText {
+      display:none;
+    }
+  }
 </style>
