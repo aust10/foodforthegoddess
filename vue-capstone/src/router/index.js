@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes:[
+  routes: [
     {
       path: '/',
       name: 'home',
@@ -35,9 +35,9 @@ const router = new VueRouter({
       path: '/favorites',
       name: 'favorites',
       component: Favorites,
-      beforeEnter (to, from, next){
-        if(index.state.isAuthenticated) {
-          next ()
+      beforeEnter (to, from, next) {
+        if (index.state.isAuthenticated) {
+          next()
         } else {
           next('/Login')
         }
@@ -47,9 +47,9 @@ const router = new VueRouter({
       path: '/results',
       name: 'searchResult',
       component: SearchResult,
-      beforeEnter (to, from, next){
-        if(index.state.isAuthenticated) {
-          next ()
+      beforeEnter (to, from, next) {
+        if (index.state.isAuthenticated) {
+          next()
         } else {
           next('/Login')
         }
@@ -59,9 +59,9 @@ const router = new VueRouter({
       path: '/userDashBoard',
       name: 'userDashBoard',
       component: UserDashBoard,
-      beforeEnter (to, from, next){
-        if(index.state.isAuthenticated) {
-          next ()
+      beforeEnter (to, from, next) {
+        if (index.state.isAuthenticated) {
+          next()
         } else {
           next('/Login')
         }
@@ -71,10 +71,8 @@ const router = new VueRouter({
       path: '/About',
       name: 'about',
       component: About
-    },
+    }
   ]
 })
 
-
 export default router
-
