@@ -79,3 +79,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'favorites','favorites_info','comments','comments_info')
+
+
+      
